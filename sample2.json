@@ -1,0 +1,56 @@
+{
+	"name": "sample",
+	"description": "this is type description",
+	"endOfLife": "",
+	"inheritFromParent": false,
+	"internal": true,
+	"isMetadataset": false,
+	"numberOfChildNodes": "",
+	"numberOfIncludes": "",
+	"attributes": [{
+		"name": "sampleText",
+		"description": "",
+    "defaultValue": "",
+		"required": true,
+		"sensitive": true,
+		"referenceTypeName": "",
+		"valueType": "Text",
+		"regex": "",
+    "listOfValues": "",
+		"dateFormat": ""
+  }, {
+		"name": "sampleList",
+		"description": "This is a sample of list attribute",
+		"defaultValue": "ABC",
+		"required": true,
+		"sensitive": false,
+		"referenceTypeName": "",
+		"valueType": "List",
+		"regex": "",
+    "listOfValues": "ABC,BCD,EFG",
+		"dateFormat": ""
+	}, {
+		"name": "sampleRegex",
+		"description": "This is sample of regex attribute",
+		"defaultValue": "",
+		"required": true,
+		"sensitive": false,
+		"referenceTypeName": "",
+		"valueType": "Regex",
+		"regex": "^123456$",
+    "listOfValues": "",
+		"dateFormat": ""
+	}, {
+		"name": "sampleRef",
+		"description": "this is long description - update",
+		"defaultValue": "",
+		"required": true,
+		"sensitive": false,
+		"referenceTypeName": "hostname",
+		"valueType": "",
+		"regex": "",
+    "listOfValues": "",
+		"dateFormat": ""
+	}]
+
+}
