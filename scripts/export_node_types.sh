@@ -69,23 +69,6 @@ function get_all_node_types() {
 
 
 # arg1: type id
-function get_node_type_name() {
-	id=${1}
-
-	# Get a node_type based on its id
-	res=$(\
-	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type/$id" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
-		)
-	# check curl exit code
-	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
-  # check http return code
-	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then exit 1; fi;
-
-	name=$(echo ${res} | jq '.entities[].properties.version.name | select(.status=="VALID")')
-	echo ${name}
-}
-
-# arg1: type id
 function get_all_attributes() {
 	id=${1}
 
