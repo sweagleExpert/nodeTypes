@@ -1,0 +1,42 @@
+{ "name":"kubernetes-service-spec"
+,"description":"null"
+,"endOfLife":"null"
+,"inheritFromParent":false
+,"internal":true
+,"isMetadataset":false
+,"numberOfChildNodes":null
+,"numberOfIncludes":null
+,"attributes": [
+{ "name":"ports"
+,"description":"null"
+,"defaultValue":"null"
+,"required":true
+,"sensitive":null
+,"referenceTypeName":"kubernetes-ports"
+,"valueType":"null"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+},
+{ "name":"selector"
+,"description":"null"
+,"defaultValue":"null"
+,"required":true
+,"sensitive":null
+,"referenceTypeName":"kubernetes-data"
+,"valueType":"null"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+},
+{ "name":"type"
+,"description":"null"
+,"defaultValue":"ClusterIP"
+,"required":false
+,"sensitive":false
+,"referenceTypeName":"null"
+,"valueType":"List"
+,"regex":"null"
+,listOfValues: ["ClusterIP","LoadBalancer","NodePort"]
+,"dateFormat":"null"
+}]}

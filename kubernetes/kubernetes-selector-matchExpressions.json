@@ -1,0 +1,42 @@
+{ "name":"kubernetes-selector-matchExpressions"
+,"description":"null"
+,"endOfLife":"null"
+,"inheritFromParent":false
+,"internal":false
+,"isMetadataset":false
+,"numberOfChildNodes":null
+,"numberOfIncludes":null
+,"attributes": [
+{ "name":"key"
+,"description":"null"
+,"defaultValue":""
+,"required":true
+,"sensitive":false
+,"referenceTypeName":"null"
+,"valueType":"Text"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+},
+{ "name":"operator"
+,"description":"null"
+,"defaultValue":"In"
+,"required":true
+,"sensitive":false
+,"referenceTypeName":"null"
+,"valueType":"List"
+,"regex":"null"
+,listOfValues: ["In","NotIn"]
+,"dateFormat":"null"
+},
+{ "name":"values"
+,"description":"null"
+,"defaultValue":"[]"
+,"required":true
+,"sensitive":false
+,"referenceTypeName":"null"
+,"valueType":"Text"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+}]}

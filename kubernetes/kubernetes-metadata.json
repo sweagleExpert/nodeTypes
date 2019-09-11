@@ -1,0 +1,53 @@
+{ "name":"kubernetes-metadata"
+,"description":"null"
+,"endOfLife":"null"
+,"inheritFromParent":false
+,"internal":true
+,"isMetadataset":false
+,"numberOfChildNodes":0
+,"numberOfIncludes":0
+,"attributes": [
+{ "name":"annotations"
+,"description":"null"
+,"defaultValue":"null"
+,"required":false
+,"sensitive":null
+,"referenceTypeName":"kubernetes-data"
+,"valueType":"null"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+},
+{ "name":"labels"
+,"description":"null"
+,"defaultValue":"null"
+,"required":false
+,"sensitive":null
+,"referenceTypeName":"kubernetes-data"
+,"valueType":"null"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+},
+{ "name":"name"
+,"description":"null"
+,"defaultValue":""
+,"required":true
+,"sensitive":false
+,"referenceTypeName":"null"
+,"valueType":"Text"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+},
+{ "name":"namespace"
+,"description":"null"
+,"defaultValue":""
+,"required":false
+,"sensitive":false
+,"referenceTypeName":"null"
+,"valueType":"Text"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+}]}

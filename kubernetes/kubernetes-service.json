@@ -1,0 +1,53 @@
+{ "name":"kubernetes-service"
+,"description":"kubernetes service definition"
+,"endOfLife":"null"
+,"inheritFromParent":false
+,"internal":false
+,"isMetadataset":false
+,"numberOfChildNodes":null
+,"numberOfIncludes":null
+,"attributes": [
+{ "name":"apiVersion"
+,"description":"null"
+,"defaultValue":"v1"
+,"required":true
+,"sensitive":false
+,"referenceTypeName":"null"
+,"valueType":"Text"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+},
+{ "name":"kind"
+,"description":"null"
+,"defaultValue":"Service"
+,"required":true
+,"sensitive":false
+,"referenceTypeName":"null"
+,"valueType":"List"
+,"regex":"null"
+,listOfValues: ["Deployment","Ingress","PersistentVolume","PersistentVolumeClaim","Pod","Secret","Service","StatefulSet","StorageClass"]
+,"dateFormat":"null"
+},
+{ "name":"metadata"
+,"description":"null"
+,"defaultValue":"null"
+,"required":true
+,"sensitive":null
+,"referenceTypeName":"kubernetes-metadata"
+,"valueType":"null"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+},
+{ "name":"spec"
+,"description":"null"
+,"defaultValue":"null"
+,"required":true
+,"sensitive":null
+,"referenceTypeName":"kubernetes-service-spec"
+,"valueType":"null"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+}]}

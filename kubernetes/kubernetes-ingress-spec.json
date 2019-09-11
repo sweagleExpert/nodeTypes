@@ -1,0 +1,20 @@
+{ "name":"kubernetes-ingress-spec"
+,"description":"null"
+,"endOfLife":"null"
+,"inheritFromParent":false
+,"internal":true
+,"isMetadataset":false
+,"numberOfChildNodes":null
+,"numberOfIncludes":null
+,"attributes": [
+{ "name":"backend"
+,"description":"null"
+,"defaultValue":"null"
+,"required":false
+,"sensitive":null
+,"referenceTypeName":"kubernetes-ingress-backend"
+,"valueType":"null"
+,"regex":"null"
+,listOfValues: []
+,"dateFormat":"null"
+}]}
