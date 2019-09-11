@@ -14,7 +14,7 @@
 ,"sensitive":null
 ,"referenceTypeName":"kubernetes-ingress-backend"
 ,"valueType":"null"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 }]}

@@ -14,8 +14,8 @@
 ,"sensitive":null
 ,"referenceTypeName":"kubernetes-ports"
 ,"valueType":"null"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 },
 { "name":"selector"
@@ -25,8 +25,8 @@
 ,"sensitive":null
 ,"referenceTypeName":"kubernetes-data"
 ,"valueType":"null"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 },
 { "name":"type"
@@ -36,7 +36,7 @@
 ,"sensitive":false
 ,"referenceTypeName":"null"
 ,"valueType":"List"
-,"regex":"null"
-,listOfValues: ["ClusterIP","LoadBalancer","NodePort"]
+,"regex":null
+,"listOfValues": ["ClusterIP","LoadBalancer","NodePort"]
 ,"dateFormat":"null"
 }]}

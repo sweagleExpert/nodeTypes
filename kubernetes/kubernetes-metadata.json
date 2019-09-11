@@ -14,8 +14,8 @@
 ,"sensitive":null
 ,"referenceTypeName":"kubernetes-data"
 ,"valueType":"null"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 },
 { "name":"labels"
@@ -25,8 +25,8 @@
 ,"sensitive":null
 ,"referenceTypeName":"kubernetes-data"
 ,"valueType":"null"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 },
 { "name":"name"
@@ -36,8 +36,8 @@
 ,"sensitive":false
 ,"referenceTypeName":"null"
 ,"valueType":"Text"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 },
 { "name":"namespace"
@@ -47,7 +47,7 @@
 ,"sensitive":false
 ,"referenceTypeName":"null"
 ,"valueType":"Text"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 }]}

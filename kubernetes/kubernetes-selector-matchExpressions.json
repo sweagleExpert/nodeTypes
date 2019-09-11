@@ -14,8 +14,8 @@
 ,"sensitive":false
 ,"referenceTypeName":"null"
 ,"valueType":"Text"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 },
 { "name":"operator"
@@ -25,8 +25,8 @@
 ,"sensitive":false
 ,"referenceTypeName":"null"
 ,"valueType":"List"
-,"regex":"null"
-,listOfValues: ["In","NotIn"]
+,"regex":null
+,"listOfValues": ["In","NotIn"]
 ,"dateFormat":"null"
 },
 { "name":"values"
@@ -36,7 +36,7 @@
 ,"sensitive":false
 ,"referenceTypeName":"null"
 ,"valueType":"Text"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 }]}

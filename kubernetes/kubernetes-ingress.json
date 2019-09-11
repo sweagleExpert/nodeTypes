@@ -14,8 +14,8 @@
 ,"sensitive":false
 ,"referenceTypeName":"null"
 ,"valueType":"Text"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 },
 { "name":"kind"
@@ -25,8 +25,8 @@
 ,"sensitive":false
 ,"referenceTypeName":"null"
 ,"valueType":"List"
-,"regex":"null"
-,listOfValues: ["Deployment","Ingress","PersistentVolume","PersistentVolumeClaim","Pod","Secret","Service","StatefulSet","StorageClass"]
+,"regex":null
+,"listOfValues": ["Deployment","Ingress","PersistentVolume","PersistentVolumeClaim","Pod","Secret","Service","StatefulSet","StorageClass"]
 ,"dateFormat":"null"
 },
 { "name":"metadata"
@@ -36,8 +36,8 @@
 ,"sensitive":null
 ,"referenceTypeName":"kubernetes-metadata"
 ,"valueType":"null"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 },
 { "name":"spec"
@@ -47,7 +47,7 @@
 ,"sensitive":null
 ,"referenceTypeName":"kubernetes-ingress-spec"
 ,"valueType":"null"
-,"regex":"null"
-,listOfValues: []
+,"regex":null
+,"listOfValues": []
 ,"dateFormat":"null"
 }]}
