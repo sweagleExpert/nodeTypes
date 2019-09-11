@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# SCRIPT: load_node_types.sh
+# SCRIPT: import_node_types.sh
 # AUTHOR: dimitris@sweagle.com, filip@sweagle.com
 # DATE:   July 2019
 # REV:    1.0.D (Valid are A, B, D, T, Q, and P)
@@ -458,28 +458,34 @@ for file in $1/*.json; do
 		echo $new_attr_list | sed 's/ /\n/g'| sort > ./new.tmp
 
 		eval "attr_arr=($(comm -13 ./new.tmp ./old.tmp))"
-		for i in "${attr_arr[@]}"
-		do
-		   echo "* Delete attribute ($i)"
-			 delete_type_attribute $modelcs $type_id "$i"
-		done
+		if [[ 	${#attr_arr[@]} -ne 0 ]]; then
+			for i in "${attr_arr[@]+"${attr_arr[@]}"}"
+			do
+			   echo "* Delete attribute ($i)"
+				 delete_type_attribute $modelcs $type_id "$i"
+			done
+		fi
 
 		eval "attr_arr=($(comm -23 ./new.tmp ./old.tmp))"
-		for i in "${attr_arr[@]}"
-		do
-		   echo "* Create attribute ($i)"
-			 parse_json_attribute "${attributes}" "$i"
-			 create_type_attribute $modelcs $type_id "$name" "$description" "$valueType" "$required" "$sensitive" "$regex" "$listOfValues" "$dateFormat" "$defaultValue" "$referenceTypeName"
-		done
+		if [[ 	${#attr_arr[@]} -ne 0 ]]; then
+			for i in "${attr_arr[@]}"
+			do
+			   echo "* Create attribute ($i)"
+				 parse_json_attribute "${attributes}" "$i"
+				 create_type_attribute $modelcs $type_id "$name" "$description" "$valueType" "$required" "$sensitive" "$regex" "$listOfValues" "$dateFormat" "$defaultValue" "$referenceTypeName"
+			done
+		fi
 
 		eval "attr_arr=($(comm -12 ./new.tmp ./old.tmp))"
-		for i in "${attr_arr[@]}"
-		do
-		   echo "* Update attribute ($i)"
-			 attr_id=$(get_type_attribute $type_id "$i")
-			 parse_json_attribute "${attributes}" "$i"
-			 update_type_attribute $modelcs $type_id $attr_id "$name" "$description" "$valueType" "$required" "$sensitive" "$regex" "$listOfValues" "$dateFormat" "$defaultValue" "$referenceTypeName"
-		done
+		if [[ 	${#attr_arr[@]} -ne 0 ]]; then
+			for i in "${attr_arr[@]}"
+			do
+			   echo "* Update attribute ($i)"
+				 attr_id=$(get_type_attribute $type_id "$i")
+				 parse_json_attribute "${attributes}" "$i"
+				 update_type_attribute $modelcs $type_id $attr_id "$name" "$description" "$valueType" "$required" "$sensitive" "$regex" "$listOfValues" "$dateFormat" "$defaultValue" "$referenceTypeName"
+			done
+		fi
 
 		rm -f ./new.tmp
 		rm -f ./old.tmp
