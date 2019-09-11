@@ -85,6 +85,21 @@ function get_all_attributes() {
 }
 
 
+# arg1: type id
+function get_all_allowed_child_types() {
+	id=${1}
+
+	res=$(\
+	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type/$id/childTypes" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
+		)
+	# check curl exit code
+	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
+  # check http return code
+	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then exit 1; fi;
+
+	echo ${res}
+}
+
 ##########################################################
 #               BEGINNING OF MAIN
 ##########################################################
@@ -136,6 +151,10 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 	echo ",\"isMetadataset\":$(_jq '.isMetadataset')"  >> $filename
 	echo ",\"numberOfChildNodes\":$(_jq '.numberOfChildNodes')"  >> $filename
 	echo ",\"numberOfIncludes\":$(_jq '.numberOfIncludes')"  >> $filename
+
+	allowedChild=$(get_all_allowed_child_types $type_id)
+	allowedChild="[$(echo ${allowedChild} | jq -r '[.entities[].properties.identifierKey] | @csv')]"
+	echo ",\"allowedChildTypes\":$allowedChild"  >> $filename
 
 	attributesInitial=$(get_all_attributes $type_id)
 	attributes=$(echo ${attributesInitial} | jq '.entities[].properties.version | select(.status=="VALID")')
