@@ -145,7 +145,6 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 		echo "No attributes for this node type"
 		echo "}"  >> $filename
 	else
-		#echo " Some attributes, exporting them"
 		echo ",\"attributes\": ["  >> $filename
 		for attr in $(echo "[${attributes}]" | jq -r '.[] | @base64'); do
 		    _jq() {
@@ -170,12 +169,12 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 				fi
 				echo ",\"referenceTypeName\":\"$reference\""  >> $filename
 				echo ",\"valueType\":\"$(_jq '.valueType')\""  >> $filename
-				echo ",\"regex\":\"$(_jq '.regex')\""  >> $filename
+				echo ",\"regex\":$(echo ${attr} | base64 --decode | jq '.regex')"  >> $filename
 				listOfValues=$(echo ${attributesInitial} | jq --arg attr_name ${attr_name} -r '.entities[].properties | select(.identifierKey|index($attr_name)).listOfValues')
 				if [ "$listOfValues" != "[]" ]; then
 					listOfValues="[$(echo ${listOfValues} | jq -r '[.[].value] | @csv')]"
 				fi
-				echo ",listOfValues: $listOfValues"  >> $filename
+				echo ",\"listOfValues\": $listOfValues"  >> $filename
 				echo ",\"dateFormat\":\"$(_jq '.dateFormat')\""  >> $filename
 				echo "},"  >> $filename
 		done

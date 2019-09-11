@@ -37,7 +37,7 @@
 		"sensitive": false,
 		"referenceTypeName": "",
 		"valueType": "Regex",
-		"regex": "^123456$",
+		"regex": "^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])$",
     "listOfValues": "",
 		"dateFormat": ""
 	}, {
