@@ -2,10 +2,11 @@
 ,"description":"null"
 ,"endOfLife":"null"
 ,"inheritFromParent":false
-,"internal":false
+,"internal":true
 ,"isMetadataset":false
 ,"numberOfChildNodes":null
 ,"numberOfIncludes":null
+,"allowedChildTypes":[]
 ,"attributes": [
 { "name":"key"
 ,"description":"null"

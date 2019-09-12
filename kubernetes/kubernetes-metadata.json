@@ -4,8 +4,9 @@
 ,"inheritFromParent":false
 ,"internal":true
 ,"isMetadataset":false
-,"numberOfChildNodes":0
+,"numberOfChildNodes":2
 ,"numberOfIncludes":0
+,"allowedChildTypes":[]
 ,"attributes": [
 { "name":"annotations"
 ,"description":"null"

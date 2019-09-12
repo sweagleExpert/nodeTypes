@@ -6,6 +6,7 @@
 ,"isMetadataset":false
 ,"numberOfChildNodes":null
 ,"numberOfIncludes":null
+,"allowedChildTypes":[]
 ,"attributes": [
 { "name":"apiVersion"
 ,"description":"null"

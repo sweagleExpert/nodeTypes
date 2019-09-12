@@ -6,6 +6,7 @@
 ,"isMetadataset":false
 ,"numberOfChildNodes":1
 ,"numberOfIncludes":0
+,"allowedChildTypes":[]
 ,"attributes": [
 { "name":"backend"
 ,"description":"null"
