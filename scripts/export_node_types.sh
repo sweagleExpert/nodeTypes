@@ -125,7 +125,7 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 	filename="$TARGET_DIR/$type_name.json"
 	# Remove <space> from filename
 	filename=${filename//" "/"-"}
-  echo "{ \"name\":\"$type_name\""  >> $filename
+  echo "{ \"name\":\"$type_name\""  > $filename
 	echo ",\"description\":$(_jq '.description')"  >> $filename
 	echo ",\"endOfLife\":$(_jq '.endOfLife')"  >> $filename
 	echo ",\"inheritFromParent\":$(_jq '.inheritFromParent')"  >> $filename
@@ -152,9 +152,9 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 		     echo ${attr} | base64 --decode | jq ${1}
 		    }
 				# attr_id=$(_jq '.masterId')
-				attr_name=$(_jq '.name')
+				attr_name=$(echo ${attr} | base64 --decode | jq -r '.name')
 				echo " Exporting attribute $attr_name"
-				echo "{ \"name\":$attr_name"  >> $filename
+				echo "{ \"name\":\"$attr_name\""  >> $filename
 				echo ",\"description\":$(_jq '.description')"  >> $filename
 				echo ",\"defaultValue\":$(_jq '.defaultValue')"  >> $filename
 				echo ",\"required\":$(_jq '.required')"  >> $filename
@@ -171,9 +171,9 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 				echo ",\"referenceTypeName\":$reference"  >> $filename
 				echo ",\"valueType\":$(_jq '.valueType')"  >> $filename
 				echo ",\"regex\":$(_jq '.regex')"  >> $filename
-				listOfValues=$(echo ${attributesInitial} | jq --arg attr_name ${attr_name} -r '.entities[].properties | select(.identifierKey|index($attr_name)).listOfValues')
+				listOfValues=$(echo ${attributesInitial} | jq --arg attr_name ${attr_name} -r '.entities[].properties | select(.identifierKey==$attr_name).listOfValues')
 				if [ "$listOfValues" != "[]" ]; then
-					listOfValues="[$(echo ${listOfValues} | jq -r '[.[].value] | @csv')]"
+					listOfValues="$(echo ${listOfValues} | jq '[.[].value]')"
 				fi
 				echo ",\"listOfValues\": $listOfValues"  >> $filename
 				echo ",\"dateFormat\":$(_jq '.dateFormat')"  >> $filename
