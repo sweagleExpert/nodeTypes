@@ -1,0 +1,159 @@
+{
+  "name": "mysql",
+  "description": "This is MySQL standard settings",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "mysql_authentication_plugin",
+      "description": null,
+      "defaultValue": "mysql_native_password",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "List",
+      "regex": null,
+      "listOfValues": [
+        "mysql_native_password"
+      ],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_data_dir",
+      "description": null,
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^((/[^/ ]*)+/?|{{.*}})$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_db",
+      "description": null,
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_db_password",
+      "description": null,
+      "defaultValue": "",
+      "required": false,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_db_user",
+      "description": null,
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_install_dir",
+      "description": null,
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^((/[^/ ]*)+/?|{{.*}})$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_log_dir",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^((/[^/ ]*)+/?|{{.*}})$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_port",
+      "description": null,
+      "defaultValue": "3306",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^([2-9]\\d{3}|1[1-9]\\d\\d|10[3-9]\\d|102[4-9])$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_root_password",
+      "description": null,
+      "defaultValue": "",
+      "required": true,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_root_user",
+      "description": null,
+      "defaultValue": "root",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_server",
+      "description": null,
+      "defaultValue": "localhost",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])(\\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]))*$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "mysql_version",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^(\\d+\\.)?(\\d+\\.)?(\\d+)$",
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}
