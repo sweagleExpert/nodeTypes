@@ -30,7 +30,17 @@
       "referenceTypeName": null,
       "valueType": "List",
       "regex": null,
-      "listOfValues": [],
+      "listOfValues": [
+        "Deployment",
+        "Ingress",
+        "PersistentVolume",
+        "PersistentVolumeClaim",
+        "Pod",
+        "Secret",
+        "Service",
+        "StatefulSet",
+        "StorageClass"
+      ],
       "dateFormat": null
     },
     {

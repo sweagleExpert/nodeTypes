@@ -42,7 +42,11 @@
       "referenceTypeName": null,
       "valueType": "List",
       "regex": null,
-      "listOfValues": [],
+      "listOfValues": [
+        "ClusterIP",
+        "LoadBalancer",
+        "NodePort"
+      ],
       "dateFormat": null
     }
   ]

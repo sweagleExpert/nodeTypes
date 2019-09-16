@@ -30,7 +30,10 @@
       "referenceTypeName": null,
       "valueType": "List",
       "regex": null,
-      "listOfValues": [],
+      "listOfValues": [
+        "In",
+        "NotIn"
+      ],
       "dateFormat": null
     },
     {

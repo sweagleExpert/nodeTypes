@@ -42,7 +42,10 @@
       "referenceTypeName": null,
       "valueType": "List",
       "regex": null,
-      "listOfValues": [],
+      "listOfValues": [
+        "TCP",
+        "UDP"
+      ],
       "dateFormat": null
     },
     {
