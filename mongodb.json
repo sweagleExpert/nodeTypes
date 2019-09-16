@@ -1,6 +1,6 @@
 {
   "name": "mongodb",
-  "description": null,
+  "description": "This is MongoDB standard settings",
   "endOfLife": null,
   "inheritFromParent": false,
   "internal": false,
