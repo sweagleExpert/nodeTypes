@@ -1,43 +1,49 @@
-{ "name":"kubernetes-selector-matchExpressions"
-,"description":"null"
-,"endOfLife":"null"
-,"inheritFromParent":false
-,"internal":true
-,"isMetadataset":false
-,"numberOfChildNodes":null
-,"numberOfIncludes":null
-,"allowedChildTypes":[]
-,"attributes": [
-{ "name":"key"
-,"description":"null"
-,"defaultValue":""
-,"required":true
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"Text"
-,"regex":null
-,"listOfValues": []
-,"dateFormat":"null"
-},
-{ "name":"operator"
-,"description":"null"
-,"defaultValue":"In"
-,"required":true
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"List"
-,"regex":null
-,"listOfValues": ["In","NotIn"]
-,"dateFormat":"null"
-},
-{ "name":"values"
-,"description":"null"
-,"defaultValue":"[]"
-,"required":true
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"Text"
-,"regex":null
-,"listOfValues": []
-,"dateFormat":"null"
-}]}
+{
+  "name": "kubernetes-selector-matchExpressions",
+  "description": null,
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "key",
+      "description": null,
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "operator",
+      "description": null,
+      "defaultValue": "In",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "List",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "values",
+      "description": null,
+      "defaultValue": "[]",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}

@@ -1,10 +1,11 @@
-{ "name":"kubernetes-data"
-,"description":"null"
-,"endOfLife":"null"
-,"inheritFromParent":false
-,"internal":true
-,"isMetadataset":false
-,"numberOfChildNodes":null
-,"numberOfIncludes":null
-,"allowedChildTypes":[]
+{
+  "name": "kubernetes-data",
+  "description": null,
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": []
 }

@@ -1,10 +1,13 @@
-{ "name":"kubernetes-ports"
-,"description":"kubernetes list of ports"
-,"endOfLife":"null"
-,"inheritFromParent":false
-,"internal":true
-,"isMetadataset":false
-,"numberOfChildNodes":null
-,"numberOfIncludes":0
-,"allowedChildTypes":["kubernetes-port"]
+{
+  "name": "kubernetes-ports",
+  "description": "kubernetes list of ports",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": 0,
+  "allowedChildTypes": [
+    "kubernetes-port"
+  ]
 }
