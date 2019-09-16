@@ -32,30 +32,28 @@
 
 # command line arguments
 this_script=$(basename $0)
-host=${1:-}
+TARGET_DIR=${1:-}
+# load sweagle host specific variables like aToken, sweagleURL, ...
+source $(dirname "$0")/sweagle.env
+# Check input arguments
+if [ "$#" -lt "1" ]; then
+	echo "*** No target directory provided, will use (.) as output"
+	TARGET_DIR="."
+else
+	if [ ! -d "$TARGET_DIR" ]; then
+		echo "********** ERROR: ($1) IS NOT A DIRECTORY"
+    echo "********** YOU SHOULD PROVIDE TARGET DIRECTORY WHERE YOUR TYPES WILL BE STORED"
+    exit 1
+	fi
+fi
+
 
 ##########################################################
 #                    FUNCTIONS
 ##########################################################
 
-# arg1: http result (incl. http code)
-# arg2: httpcode (by reference)
-function get_httpreturn() {
-	local -n __http=${1}
-	local -n __res=${2}
-
-	__http="${__res:${#__res}-3}"
-    if [ ${#__res} -eq 3 ]; then
-      __res=""
-    else
-      __res="${__res:0:${#__res}-3}"
-    fi
-}
-
-
 function get_all_node_types() {
-	# Get all mdi_types
-	#echo "curl $sweagleURL/api/v1/model/mdiType?name=$name --request GET --header 'authorization: bearer $aToken'  --header 'Accept: application/vnd.siren+json'"
+
 	res=$(\
 	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
 		)
@@ -107,23 +105,7 @@ function get_all_allowed_child_types() {
 set -o errexit # exit after first line that fails
 set -o nounset # exit when script tries to use undeclared variables
 
-# load sweagle host specific variables like aToken, sweagleURL, ...
-source $(dirname "$0")/sweagle.env
 eol=$'\n'
-
-# Check input arguments
-if [ "$#" -lt "1" ]; then
-	echo "*** No target directory provided, will use (.) as output"
-	TARGET_DIR="."
-else
-	if [ -d "$1" ]; then
-		TARGET_DIR="$1"
-	else
-		echo "********** ERROR: ($1) IS NOT A DIRECTORY"
-    echo "********** YOU SHOULD PROVIDE TARGET DIRECTORY WHERE YOUR TYPES WILL BE STORED"
-    exit 1
-	fi
-fi
 
 echo "*** Getting all node types from SWEAGLE tenant $sweagleURL"
 node_types=$(get_all_node_types)
@@ -135,17 +117,17 @@ node_types=${node_types//"}$eol{"/"},{"}
 
 for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
     _jq() {
-     echo ${row} | base64 --decode | jq -r ${1}
+     echo ${row} | base64 --decode | jq ${1}
     }
 	type_id=$(_jq '.masterId')
-	type_name=$(_jq '.name')
+	type_name=$(echo ${row} | base64 --decode | jq -r '.name')
 	echo "*** Exporting node type $type_name"
 	filename="$TARGET_DIR/$type_name.json"
 	# Remove <space> from filename
 	filename=${filename//" "/"-"}
   echo "{ \"name\":\"$type_name\""  >> $filename
-	echo ",\"description\":\"$(_jq '.description')\""  >> $filename
-	echo ",\"endOfLife\":\"$(_jq '.endOfLife')\""  >> $filename
+	echo ",\"description\":$(_jq '.description')"  >> $filename
+	echo ",\"endOfLife\":$(_jq '.endOfLife')"  >> $filename
 	echo ",\"inheritFromParent\":$(_jq '.inheritFromParent')"  >> $filename
 	echo ",\"internal\":$(_jq '.internal')"  >> $filename
 	echo ",\"isMetadataset\":$(_jq '.isMetadataset')"  >> $filename
@@ -167,14 +149,14 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 		echo ",\"attributes\": ["  >> $filename
 		for attr in $(echo "[${attributes}]" | jq -r '.[] | @base64'); do
 		    _jq() {
-		     echo ${attr} | base64 --decode | jq -r ${1}
+		     echo ${attr} | base64 --decode | jq ${1}
 		    }
 				# attr_id=$(_jq '.masterId')
 				attr_name=$(_jq '.name')
 				echo " Exporting attribute $attr_name"
-				echo "{ \"name\":\"$attr_name\""  >> $filename
-				echo ",\"description\":\"$(_jq '.description')\""  >> $filename
-				echo ",\"defaultValue\":\"$(_jq '.defaultValue')\""  >> $filename
+				echo "{ \"name\":$attr_name"  >> $filename
+				echo ",\"description\":$(_jq '.description')"  >> $filename
+				echo ",\"defaultValue\":$(_jq '.defaultValue')"  >> $filename
 				echo ",\"required\":$(_jq '.required')"  >> $filename
 				echo ",\"sensitive\":$(_jq '.sensitive')"  >> $filename
 				reference="$(_jq '.referenceTypeId')"
@@ -183,23 +165,26 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 					# convert string to integer
 					reference=$(($reference + 0))
 					# Get node type name based on its id, we use --argjson instead of --arg to pass a number argument
-					reference=$(echo "[${node_types}]" | jq --argjson node_id ${reference} -r '.[] | select(.masterId==$node_id).name')
+					reference=$(echo "[${node_types}]" | jq --argjson node_id ${reference} '.[] | select(.masterId==$node_id).name')
 					#echo "new=$reference"
 				fi
-				echo ",\"referenceTypeName\":\"$reference\""  >> $filename
-				echo ",\"valueType\":\"$(_jq '.valueType')\""  >> $filename
-				echo ",\"regex\":$(echo ${attr} | base64 --decode | jq '.regex')"  >> $filename
+				echo ",\"referenceTypeName\":$reference"  >> $filename
+				echo ",\"valueType\":$(_jq '.valueType')"  >> $filename
+				echo ",\"regex\":$(_jq '.regex')"  >> $filename
 				listOfValues=$(echo ${attributesInitial} | jq --arg attr_name ${attr_name} -r '.entities[].properties | select(.identifierKey|index($attr_name)).listOfValues')
 				if [ "$listOfValues" != "[]" ]; then
 					listOfValues="[$(echo ${listOfValues} | jq -r '[.[].value] | @csv')]"
 				fi
 				echo ",\"listOfValues\": $listOfValues"  >> $filename
-				echo ",\"dateFormat\":\"$(_jq '.dateFormat')\""  >> $filename
+				echo ",\"dateFormat\":$(_jq '.dateFormat')"  >> $filename
 				echo "},"  >> $filename
 		done
 		# replace last , by } to end json element
 	  sed -i '$ s/.$/]}/' $filename
 	fi
+	# Reformat the JSON file
+	jq . "${filename}" > "${filename}.tmp"
+	mv "${filename}.tmp" "${filename}"
 done
 
 exit 0
