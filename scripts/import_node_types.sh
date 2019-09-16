@@ -23,7 +23,7 @@
 # set -n   # Uncomment to check script syntax, without execution.
 #          # NOTE: Do not forget to put the # comment back in or
 #          #       the shell script will never execute!
-#set -x   # Uncomment to debug this shell script
+set -x   # Uncomment to debug this shell script
 #
 ##########################################################
 #               FILES AND VARIABLES
@@ -31,25 +31,19 @@
 
 # command line arguments
 this_script=$(basename $0)
-host=${1:-}
+INPUT_DIR=${1:-}
+# load sweagle host specific variables like aToken, sweagleURL, ...
+source $(dirname "$0")/sweagle.env
+# Check input args
+if [ "$#" -lt "1" ]; then
+    echo "********** ERROR: NOT ENOUGH ARGUMENTS SUPPLIED"
+    echo "********** YOU SHOULD PROVIDE 1- DIRECTORY WHERE YOUR TYPES ARE STORED"
+    exit 1
+fi
 
 ##########################################################
 #                    FUNCTIONS
 ##########################################################
-
-# arg1: http result (incl. http code)
-# arg2: httpcode (by reference)
-function get_httpreturn() {
-	local -n __http=${1}
-	local -n __res=${2}
-
-	__http="${__res:${#__res}-3}"
-    if [ ${#__res} -eq 3 ]; then
-      __res=""
-    else
-      __res="${__res:0:${#__res}-3}"
-    fi
-}
 
 # arg1: title
 # arg2: description
@@ -71,20 +65,19 @@ function create_modelchangeset() {
 	echo ${cs}
 }
 
+# Get a node_type based on its name
 # arg1: name
 function get_node_type() {
 	name=${1}
 
-	# Get a mdi_type based on its name
-	#echo "curl $sweagleURL/api/v1/model/mdiType?name=$name --request GET --header 'authorization: bearer $aToken'  --header 'Accept: application/vnd.siren+json'"
+  # Replace any space in name by %20 as data-urlencode doesn't seem to work for GET
+  name=${name//" "/"%20"}
 	res=$(\
-	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type?name=$name" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
-		)
-
+	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type?name=${name}" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' )
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
   # check http return code
-	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then exit 1; fi;
+	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then echo ${res}; exit 1; fi;
 
 	id=$(echo ${res} | jq '.entities[0].properties.id')
 	echo ${id}
@@ -100,11 +93,10 @@ function get_type_attribute() {
 	res=$(\
 	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/attribute?type=$id" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
 		)
-
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
   # check http return code
-	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then exit 1; fi;
+	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then echo ${res}; exit 1; fi;
 
 	if [ -n "${name}" ]; then
 		# Get attribute ID based on its name
@@ -142,8 +134,8 @@ function create_type_attribute() {
 	referenceTypeName=${12:-}
 
   # Calculate URL depending on referenceType, because both referenceType or valueType must not be present at same time
-	if [ -n "${referenceTypeName}" ]; then
-		# if there is a refence name, then find referenced type
+	if [[ -n "${referenceTypeName}" && "${referenceTypeName}" != "null" ]]; then
+		# if there is a reference name, then find referenced type
 		referenceTypeId=$(get_node_type "$referenceTypeName")
 		createURL="$sweagleURL/api/v1/model/attribute?referenceType=${referenceTypeId}"
 	else
@@ -167,7 +159,7 @@ function create_type_attribute() {
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
 	# check http return code, it's ok if 200 (OK) or 201 (created)
-	get_httpreturn httpcode res; if [[ "${httpcode}" != 20* ]]; then exit 1; fi;
+	get_httpreturn httpcode res; if [[ "${httpcode}" != 20* ]]; then echo ${res}; exit 1; fi;
 }
 
 # arg1: changeset ID
@@ -210,7 +202,7 @@ function create_node_type() {
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
   # check http return code, it's ok if 200 (OK) or 201 (created)
-	get_httpreturn httpcode res; if [[ "${httpcode}" != 20* ]]; then exit 1; fi;
+	get_httpreturn httpcode res; if [[ "${httpcode}" != 20* ]]; then echo ${res}; exit 1; fi;
 
 	# Get the node ID created
 	id=$(echo ${res} | jq '.properties.id')
@@ -237,7 +229,7 @@ function delete_type_attribute() {
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
 	# check http return code, it's ok if 200 (OK) or 201 (created)
-	get_httpreturn httpcode res; if [ ${httpcode} -ne 200 ]; then exit 1; fi;
+	get_httpreturn httpcode res; if [ ${httpcode} -ne 200 ]; then echo ${res}; exit 1; fi;
 }
 
 
@@ -294,7 +286,7 @@ function update_type_attribute() {
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
   # check http return code
-	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then exit 1; fi;
+	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then echo ${res}; exit 1; fi;
 }
 
 # arg1: changeset ID
@@ -380,6 +372,12 @@ function parse_json_attribute() {
 	valueType=$(echo ${json} | jq -r '.valueType // empty')
 	regex=$(echo ${json} | jq -r '.regex // empty')
 	listOfValues=$(echo ${json} | jq -r '.listOfValues // empty')
+  if [[ "${listOfValues}" == "[]" || "${listOfValues}" == "null" ]]; then
+    listOfValues=""
+  else
+    # If there is a list, we should transform it from JSON format to simple CSV list with no "" separator
+    listOfValues=$(echo ${listOfValues} | jq -r '. | join (",")')
+  fi
 	dateFormat=$(echo ${json} | jq -r '.dateFormat // empty')
 }
 
@@ -406,19 +404,10 @@ function parse_json_node_type() {
 set -o errexit # exit after first line that fails
 set -o nounset # exit when script tries to use undeclared variables
 
-# load sweagle host specific variables like aToken, sweagleURL, ...
-source $(dirname "$0")/sweagle.env
-
-if [ "$#" -lt "1" ]; then
-    echo "********** ERROR: NOT ENOUGH ARGUMENTS SUPPLIED"
-    echo "********** YOU SHOULD PROVIDE 1- DIRECTORY WHERE YOUR TYPES ARE STORED"
-    exit 1
-fi
-
 # create a new model changeset
 modelcs=$(create_modelchangeset 'Create NODE Types' "Create new NODE types at $(date +'%c')")
 
-for file in $1/*.json; do
+for file in $INPUT_DIR/*.json; do
 	echo "***************************************************************"
 	echo "*** Parsing file $file"
 	parse_json_node_type "$file"
@@ -426,19 +415,21 @@ for file in $1/*.json; do
 	if [ -z "$type_id" ] || [ "$type_id" == "null" ]; then
 		echo "*** No existing NODE type $name, create it"
 		type_id=$(create_node_type $modelcs "$name")
-		echo "Node type created with ID $type_id, creating attributes"
 
+		echo "Node type created with ID $type_id, creating attributes"
 		while IFS=$'\n' read -r attr; do
-				attr=$(echo "${attr//[/}")
-				attr=$(echo "${attr//]/}")
-				#IFS=',' read -a attribute <<< "$attr"
-				attr=$(echo "${attr//,/ }")
-				eval "attribute=($attr)"
-				#parse_json_attribute ${attribute}
-				#create_type_attribute $modelcs $type_id $name $description $valueType $required $sensitive $regex $dateFormat $defaultValue $referenceTypeName
-				create_type_attribute $modelcs $type_id "${attribute[0]}" "${attribute[1]}" "${attribute[2]}" "${attribute[3]}" "${attribute[4]}" "${attribute[5]}" "${attribute[6]}" "${attribute[7]}" "${attribute[8]}" "${attribute[9]}"
-				echo "* Attribute (${attribute[0]}) created"
-		done< <(jq -c -r '.attributes[] | [.name,.description,.valueType,.required,.sensitive,.regex,.listOfValues,.dateFormat,.defaultValue,.referenceTypeName]' < $file)
+      # Remove first and last characters that are [] to get name
+      #name="${attr:1:${#attr}-2}"
+      parse_json_attribute "${attributes}" "${attr}"
+      echo "* Creating attribute (${name})"
+			#attr=$(echo "${attr//[/}")
+			#attr=$(echo "${attr//]/}")
+			#attr=$(echo "${attr//,/ }")
+			#eval "attribute=($attr)"
+			create_type_attribute $modelcs $type_id "$name" "$description" "$valueType" "$required" "$sensitive" "$regex" "$listOfValues" "$dateFormat" "$defaultValue" "$referenceTypeName"
+			#create_type_attribute $modelcs $type_id "${attribute[0]}" "${attribute[1]}" "${attribute[2]}" "${attribute[3]}" "${attribute[4]}" "${attribute[5]}" "${attribute[6]}" "${attribute[7]}" "${attribute[8]}" "${attribute[9]}"
+			echo "* Attribute (${name}) created"
+		done< <(jq -c -r '.attributes[] | .name' < $file)
 # PROBLEM OF THE CODE BELOW : RECORDS ARE SPLITTED BECAUSE OF SPACES IN DESCRIPTION FIELD
 #  	for row in $(echo "$attributes" | jq -c -r '.[] | [.name,.description,.defaultValue]'); do
 #			echo "row=${row}"
