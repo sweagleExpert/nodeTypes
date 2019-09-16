@@ -1,98 +1,161 @@
-{ "name":"vault"
-,"description":"null"
-,"endOfLife":"null"
-,"inheritFromParent":false
-,"internal":false
-,"isMetadataset":false
-,"numberOfChildNodes":null
-,"numberOfIncludes":null
-,"allowedChildTypes":[]
-,"attributes": [
-{ "name":"vault_auto_unseal"
-,"description":"null"
-,"defaultValue":"null"
-,"required":false
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"Text"
-,"regex":null
-,"listOfValues": []
-,"dateFormat":"dd-MM-yyyy"
-},
-{ "name":"vault_backend"
-,"description":"null"
-,"defaultValue":"file"
-,"required":true
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"List"
-,"regex":null
-,"listOfValues": ["consul","file","mysql"]
-,"dateFormat":"null"
-},
-{ "name":"vault_copy_keys"
-,"description":"null"
-,"defaultValue":"null"
-,"required":false
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"Text"
-,"regex":null
-,"listOfValues": []
-,"dateFormat":"dd-MM-yyyy"
-},
-{ "name":"vault_install_dir"
-,"description":"null"
-,"defaultValue":"/opt/vault"
-,"required":true
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"Regex"
-,"regex":"^(/[^/ ]*)+/?$"
-,"listOfValues": []
-,"dateFormat":"dd-MM-yyyy"
-},
-{ "name":"vault_port"
-,"description":"null"
-,"defaultValue":"8200"
-,"required":true
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"Regex"
-,"regex":"^82[0-9][0-9]$"
-,"listOfValues": []
-,"dateFormat":"dd-MM-yyyy"
-},
-{ "name":"vault_server"
-,"description":"null"
-,"defaultValue":"localhost"
-,"required":true
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"Regex"
-,"regex":"^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])(\\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]))*$"
-,"listOfValues": []
-,"dateFormat":"null"
-},
-{ "name":"vault_token"
-,"description":"null"
-,"defaultValue":"null"
-,"required":false
-,"sensitive":true
-,"referenceTypeName":"null"
-,"valueType":"Text"
-,"regex":null
-,"listOfValues": []
-,"dateFormat":"dd-MM-yyyy"
-},
-{ "name":"vault_version"
-,"description":"null"
-,"defaultValue":"0.7.2"
-,"required":true
-,"sensitive":false
-,"referenceTypeName":"null"
-,"valueType":"Regex"
-,"regex":"^(\\d+\\.)?(\\d+\\.)?(\\d+)$"
-,"listOfValues": []
-,"dateFormat":"dd-MM-yyyy"
-}]}
+{
+  "name": "vault",
+  "description": "This is HashiCorp Vault standard settings",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "vault_backend",
+      "description": null,
+      "defaultValue": "file",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "List",
+      "regex": null,
+      "listOfValues": [
+        "consul",
+        "file",
+        "mysql"
+      ],
+      "dateFormat": null
+    },
+    {
+      "name": "vault_conf_dir",
+      "description": null,
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^((/[^/ ]*)+/?|{{.*}})$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "vault_install_dir",
+      "description": null,
+      "defaultValue": "/opt/vault",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^((/[^/ ]*)+/?|{{.*}})$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "vault_port",
+      "description": null,
+      "defaultValue": "8200",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^(82[0-9][0-9]|{{.*}})$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "vault_server",
+      "description": null,
+      "defaultValue": "localhost",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])(\\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]))|{{.*}})$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "vault_token_root",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "vault_token1",
+      "description": "this is key to unseal vault",
+      "defaultValue": null,
+      "required": false,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "vault_token2",
+      "description": "this is key to unseal vault",
+      "defaultValue": null,
+      "required": false,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "vault_token3",
+      "description": "this is key to unseal vault",
+      "defaultValue": null,
+      "required": false,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "vault_token4",
+      "description": "this is key to unseal vault",
+      "defaultValue": null,
+      "required": false,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "vault_token5",
+      "description": "this is key to unseal vault",
+      "defaultValue": null,
+      "required": false,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "vault_version",
+      "description": null,
+      "defaultValue": "0.7.2",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^(\\d+\\.)?(\\d+\\.)?(\\d+)$",
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    }
+  ]
+}
