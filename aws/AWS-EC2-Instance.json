@@ -31,7 +31,7 @@
       "valueType": "Text",
       "regex": null,
       "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
+      "dateFormat": ""
     },
     {
       "name": "imageid",
@@ -43,7 +43,7 @@
       "valueType": "Text",
       "regex": null,
       "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
+      "dateFormat": ""
     },
     {
       "name": "instancetype",
@@ -55,7 +55,7 @@
       "valueType": "Regex",
       "regex": "\\bt2.micro|\\bt2.x-large|\\bt2.nano",
       "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
+      "dateFormat": ""
     },
     {
       "name": "region",
@@ -67,7 +67,7 @@
       "valueType": "Regex",
       "regex": "\\bEMEA|\\bemea|/",
       "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
+      "dateFormat": ""
     },
     {
       "name": "size",
@@ -79,7 +79,7 @@
       "valueType": "Text",
       "regex": null,
       "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
+      "dateFormat": ""
     },
     {
       "name": "type",
@@ -103,7 +103,7 @@
       "valueType": "Text",
       "regex": null,
       "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
+      "dateFormat": ""
     }
   ]
 }
