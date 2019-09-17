@@ -24,7 +24,7 @@
 # set -n   # Uncomment to check script syntax, without execution.
 #          # NOTE: Do not forget to put the # comment back in or
 #          #       the shell script will never execute!
-set -x   # Uncomment to debug this shell script
+#set -x   # Uncomment to debug this shell script
 #
 ##########################################################
 #               FILES AND VARIABLES
