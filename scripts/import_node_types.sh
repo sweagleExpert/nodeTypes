@@ -32,6 +32,10 @@
 # command line arguments
 this_script=$(basename $0)
 INPUT_DIR=${1:-}
+# Check required library
+if [ ! -x "$(command -v jq)" ]; then
+  echo "### ERROR: JQ LIBRARY IS REQUIRED"
+fi
 # load sweagle host specific variables like aToken, sweagleURL, ...
 source $(dirname "$0")/sweagle.env
 # Check input args
@@ -435,7 +439,7 @@ for file in $INPUT_DIR/*.json; do
 
 	else
 		echo "### NODE type $name already exits with id ($type_id), update it"
-		update_node_type $modelcs "$type_id" "$name" "$description" "$inheritFromParent" "$internal" "$isMetadataset" "$endOfLife" "$numberOfChildNodes" "$numberOfIncludes"
+		update_node_type $modelcs $type_id "$name" "$description" "$inheritFromParent" "$internal" "$isMetadataset" "$endOfLife" "$numberOfChildNodes" "$numberOfIncludes"
 
 		# Check what should be made with attributes
 		# Compare new and old lists of attributes

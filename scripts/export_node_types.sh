@@ -33,6 +33,10 @@
 # command line arguments
 this_script=$(basename $0)
 TARGET_DIR=${1:-}
+# Check required library
+if [ ! -x "$(command -v jq)" ]; then
+  echo "### ERROR: JQ LIBRARY IS REQUIRED"
+fi
 # load sweagle host specific variables like aToken, sweagleURL, ...
 source $(dirname "$0")/sweagle.env
 # Check input arguments
