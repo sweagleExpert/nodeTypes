@@ -1,0 +1,97 @@
+{
+  "name": "AWS-RDS-DB",
+  "description": "AWS-RDS-DB",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "AllocatedStorage",
+      "description": "Requires less than 10",
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^(?:[1-9]|0[1-9]|10)$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "DBInstanceClass",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "DeletionPolicy",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "Engine",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^(Oracle XE|SQL Server)$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "MasterUsername",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "MasterUserPassword",
+      "description": "MasterUserPassword",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "Type",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    }
+  ]
+}

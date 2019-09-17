@@ -1,0 +1,109 @@
+{
+  "name": "AWS-EC2-Instance",
+  "description": "AWS-EC2-Instance",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "defaultToken",
+      "description": "Required Auth Token",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "description",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "imageid",
+      "description": null,
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "instancetype",
+      "description": "t2.micro | t2.x-large | t2.nano",
+      "defaultValue": "t2.micro",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "\\bt2.micro|\\bt2.x-large|\\bt2.nano",
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "region",
+      "description": "EMEA only",
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "\\bEMEA|\\bemea|/",
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "size",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "type",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    },
+    {
+      "name": "volumesize",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": "dd-MM-yyyy"
+    }
+  ]
+}
