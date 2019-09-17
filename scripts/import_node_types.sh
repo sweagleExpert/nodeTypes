@@ -36,8 +36,8 @@ INPUT_DIR=${1:-}
 source $(dirname "$0")/sweagle.env
 # Check input args
 if [ "$#" -lt "1" ]; then
-    echo "********** ERROR: NOT ENOUGH ARGUMENTS SUPPLIED"
-    echo "********** YOU SHOULD PROVIDE 1- DIRECTORY WHERE YOUR TYPES ARE STORED"
+    echo "########## ERROR: NOT ENOUGH ARGUMENTS SUPPLIED"
+    echo "########## YOU SHOULD PROVIDE 1- DIRECTORY WHERE YOUR TYPES ARE STORED"
     exit 1
 fi
 
@@ -52,8 +52,7 @@ function create_modelchangeset() {
 	description=${2}
 
 	# Create and open a new changeset
-	res=$(\
-		curl -sw "%{http_code}" "$sweagleURL/api/v1/model/changeset" --request POST --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
+	res=$(curl -sw "%{http_code}" "$sweagleURL/api/v1/model/changeset" --request POST --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
 		--data-urlencode "title=${title}" \
 		--data-urlencode "description=${description}")
 	# check exit code
@@ -72,8 +71,7 @@ function get_node_type() {
 
   # Replace any space in name by %20 as data-urlencode doesn't seem to work for GET
   name=${name//" "/"%20"}
-	res=$(\
-	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type?name=${name}" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' )
+	res=$(curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type?name=${name}" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' )
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
   # check http return code
@@ -143,8 +141,7 @@ function create_type_attribute() {
 	fi
 
 	# Create a new type_attribute
-	res=$(\
-		curl -sw "%{http_code}" "$createURL" --request POST --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
+	res=$(curl -sw "%{http_code}" "${createURL}" --request POST --header "authorization: bearer ${aToken}"  --header 'Accept: application/vnd.siren+json' \
 		--data "changeset=${changeset}" \
 		--data "type=${type_id}" \
 		--data-urlencode "name=${name}" \
@@ -155,7 +152,6 @@ function create_type_attribute() {
 		--data-urlencode "listOfValues=${listOfValues}" \
 		--data-urlencode "dateFormat=${dateFormat}" \
 		--data-urlencode "defaultValue=${defaultValue}")
-
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
 	# check http return code, it's ok if 200 (OK) or 201 (created)
@@ -361,7 +357,7 @@ function approve_model_changeset() {
 
 # arg1: json string to parse
 function parse_json_attribute() {
-	json=$(echo ${1} | jq --arg attr_name ${2} '.[] | select(.name|index($attr_name))')
+  json=$(echo ${1} | jq --arg attr_name "${2}" '.[] | select(.name==$attr_name)')
 
 	name=$(echo ${2})
 	description=$(echo ${json} | jq -r '.description // empty')
@@ -408,28 +404,28 @@ set -o nounset # exit when script tries to use undeclared variables
 modelcs=$(create_modelchangeset 'Create NODE Types' "Create new NODE types at $(date +'%c')")
 
 for file in $INPUT_DIR/*.json; do
-	echo "***************************************************************"
-	echo "*** Parsing file $file"
+	echo "################################################################"
+	echo "### Parsing file $file"
 	parse_json_node_type "$file"
 	type_id=$(get_node_type "$name")
 	if [ -z "$type_id" ] || [ "$type_id" == "null" ]; then
-		echo "*** No existing NODE type $name, create it"
+		echo "### No existing NODE type $name, create it"
 		type_id=$(create_node_type $modelcs "$name")
 
 		echo "Node type created with ID $type_id, creating attributes"
 		while IFS=$'\n' read -r attr; do
+      parse_json_attribute "${attributes}" "${attr}"
+      echo "# Creating attribute (${name})"
+			create_type_attribute ${modelcs} ${type_id} "${name}" "${description}" "${valueType}" "${required}" "${sensitive}" "$regex" "${listOfValues}" "${dateFormat}" "${defaultValue}" "${referenceTypeName}"
       # Remove first and last characters that are [] to get name
       #name="${attr:1:${#attr}-2}"
-      parse_json_attribute "${attributes}" "${attr}"
-      echo "* Creating attribute (${name})"
-			#attr=$(echo "${attr//[/}")
+      #attr=$(echo "${attr//[/}")
 			#attr=$(echo "${attr//]/}")
 			#attr=$(echo "${attr//,/ }")
 			#eval "attribute=($attr)"
-			create_type_attribute $modelcs $type_id "$name" "$description" "$valueType" "$required" "$sensitive" "$regex" "$listOfValues" "$dateFormat" "$defaultValue" "$referenceTypeName"
 			#create_type_attribute $modelcs $type_id "${attribute[0]}" "${attribute[1]}" "${attribute[2]}" "${attribute[3]}" "${attribute[4]}" "${attribute[5]}" "${attribute[6]}" "${attribute[7]}" "${attribute[8]}" "${attribute[9]}"
-			echo "* Attribute (${name}) created"
-		done< <(jq -c -r '.attributes[] | .name' < $file)
+			echo "# Attribute (${name}) created"
+		done< <(jq -c -r '.attributes[] | .name' < "${file}")
 # PROBLEM OF THE CODE BELOW : RECORDS ARE SPLITTED BECAUSE OF SPACES IN DESCRIPTION FIELD
 #  	for row in $(echo "$attributes" | jq -c -r '.[] | [.name,.description,.defaultValue]'); do
 #			echo "row=${row}"
@@ -438,7 +434,7 @@ for file in $INPUT_DIR/*.json; do
 #		done
 
 	else
-		echo "*** NODE type $name already exits with id ($type_id), update it"
+		echo "### NODE type $name already exits with id ($type_id), update it"
 		update_node_type $modelcs "$type_id" "$name" "$description" "$inheritFromParent" "$internal" "$isMetadataset" "$endOfLife" "$numberOfChildNodes" "$numberOfIncludes"
 
 		# Check what should be made with attributes
@@ -452,7 +448,7 @@ for file in $INPUT_DIR/*.json; do
 		if [[ 	${#attr_arr[@]} -ne 0 ]]; then
 			for i in "${attr_arr[@]+"${attr_arr[@]}"}"
 			do
-			   echo "* Delete attribute ($i)"
+			   echo "# Delete attribute ($i)"
 				 delete_type_attribute $modelcs $type_id "$i"
 			done
 		fi
@@ -461,7 +457,7 @@ for file in $INPUT_DIR/*.json; do
 		if [[ 	${#attr_arr[@]} -ne 0 ]]; then
 			for i in "${attr_arr[@]}"
 			do
-			   echo "* Create attribute ($i)"
+			   echo "# Create attribute ($i)"
 				 parse_json_attribute "${attributes}" "$i"
 				 create_type_attribute $modelcs $type_id "$name" "$description" "$valueType" "$required" "$sensitive" "$regex" "$listOfValues" "$dateFormat" "$defaultValue" "$referenceTypeName"
 			done
@@ -471,7 +467,7 @@ for file in $INPUT_DIR/*.json; do
 		if [[ 	${#attr_arr[@]} -ne 0 ]]; then
 			for i in "${attr_arr[@]}"
 			do
-			   echo "* Update attribute ($i)"
+			   echo "# Update attribute ($i)"
 				 attr_id=$(get_type_attribute $type_id "$i")
 				 parse_json_attribute "${attributes}" "$i"
 				 update_type_attribute $modelcs $type_id $attr_id "$name" "$description" "$valueType" "$required" "$sensitive" "$regex" "$listOfValues" "$dateFormat" "$defaultValue" "$referenceTypeName"
@@ -485,7 +481,7 @@ done
 
 # approve
 approve_model_changeset ${modelcs}
-rc=$?; if [[ "${rc}" -ne 0 ]]; then echo "Model changeset approval failed"; exit ${rc}; fi
+rc=$?; if [[ "${rc}" -ne 0 ]]; then echo "### ERROR: Model changeset approval failed"; exit ${rc}; fi
 
 exit 0
 
