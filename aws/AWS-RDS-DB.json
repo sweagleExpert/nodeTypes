@@ -1,6 +1,6 @@
 {
   "name": "AWS-RDS-DB",
-  "description": "AWS-RDS-DB",
+  "description": "Amazon Relational Database Service",
   "endOfLife": null,
   "inheritFromParent": false,
   "internal": false,
@@ -11,8 +11,8 @@
   "attributes": [
     {
       "name": "AllocatedStorage",
-      "description": "Requires less than 10",
-      "defaultValue": null,
+      "description": "Initial storage volume in Gb, requires less than 10",
+      "defaultValue": "",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
@@ -23,73 +23,97 @@
     },
     {
       "name": "DBInstanceClass",
-      "description": null,
-      "defaultValue": null,
+      "description": "Defines DB CPU and memory capacity",
+      "defaultValue": "db.m1",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
-      "valueType": "Text",
+      "valueType": "List",
       "regex": null,
-      "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
+      "listOfValues": [
+        "db.m1.small",
+        "db.m2.small",
+        "db.m3.small",
+        "db.m4.small",
+        "db.m5.small"
+      ],
+      "dateFormat": null
     },
     {
       "name": "DeletionPolicy",
-      "description": null,
-      "defaultValue": null,
+      "description": "Tells to keep or save DB data when instance is killed",
+      "defaultValue": "",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
       "valueType": "Text",
-      "regex": null,
-      "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
-    },
-    {
-      "name": "Engine",
-      "description": null,
-      "defaultValue": null,
-      "required": false,
-      "sensitive": false,
-      "referenceTypeName": null,
-      "valueType": "Regex",
-      "regex": "^(Oracle XE|SQL Server)$",
+      "regex": "",
       "listOfValues": [],
       "dateFormat": null
     },
     {
+      "name": "Engine",
+      "description": "Name of the dabatase engine to use",
+      "defaultValue": "Oracle XE",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^Oracle XE|SQL Server$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "EngineVersion",
+      "description": "Version number of database to use",
+      "defaultValue": "11",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "List",
+      "regex": null,
+      "listOfValues": [
+        "6",
+        "7",
+        "8",
+        "10g",
+        "11i"
+      ],
+      "dateFormat": null
+    },
+    {
       "name": "MasterUsername",
-      "description": null,
-      "defaultValue": null,
+      "description": "Main user name",
+      "defaultValue": "",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
       "valueType": "Text",
-      "regex": null,
+      "regex": "",
       "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
+      "dateFormat": null
     },
     {
       "name": "MasterUserPassword",
-      "description": "MasterUserPassword",
-      "defaultValue": null,
+      "description": "Main user password, any ASCII Character except « / », « \" » or « @ »",
+      "defaultValue": "",
       "required": true,
       "sensitive": true,
       "referenceTypeName": null,
       "valueType": "Text",
-      "regex": null,
+      "regex": "",
       "listOfValues": [],
-      "dateFormat": "dd-MM-yyyy"
+      "dateFormat": null
     },
     {
       "name": "Type",
-      "description": null,
-      "defaultValue": null,
+      "description": "",
+      "defaultValue": "",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
       "valueType": "Text",
-      "regex": null,
+      "regex": "",
       "listOfValues": [],
       "dateFormat": "dd-MM-yyyy"
     }
