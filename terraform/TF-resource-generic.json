@@ -1,0 +1,38 @@
+{
+	"name": "TF-generic-resource",
+	"description": "terraform generic resource specification",
+	"endOfLife": "",
+	"inheritFromParent": false,
+	"internal": true,
+	"isMetadataset": false,
+	"numberOfChildNodes": "0",
+	"numberOfIncludes": "0",
+	"attributes": [
+		{
+		"name": "resource_name",
+		"description": "name of the terra form resource",
+		"defaultValue": "",
+		"required": true,
+		"sensitive": false,
+		"referenceTypeName": "",
+		"valueType": "Text",
+		"regex": "",
+		"listOfValues": "",
+		"dateFormat": ""
+		},
+		{
+		"name": "resource_type",
+		"description": "type of the terra form resource",
+		"defaultValue": "",
+		"required": true,
+		"sensitive": false,
+		"referenceTypeName": "",
+		"valueType": "Text",
+		"regex": "",
+		"listOfValues": "",
+		"dateFormat": ""
+		}
+	]
+
+}
+

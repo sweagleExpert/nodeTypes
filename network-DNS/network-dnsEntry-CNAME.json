@@ -1,0 +1,47 @@
+{
+	"name": "dnsRecord-CNAME",
+	"description": "used to alias a hostname to another hostname",
+	"endOfLife": "",
+	"inheritFromParent": false,
+	"internal": false,
+	"isMetadataset": false,
+	"numberOfChildNodes": "0",
+	"numberOfIncludes": "0",
+	"attributes": [{
+			"name": "canonical",
+			"description": "the canonical name",
+			"defaultValue": "",
+			"required": true,
+			"sensitive": false,
+			"referenceTypeName": "",
+			"valueType": "Text",
+			"regex": "",
+			"listOfValues": "",
+			"dateFormat": ""
+  		},
+		{
+			"name": "name",
+			"description": "the reference hostname",
+			"defaultValue": "",
+			"required": true,
+			"sensitive": false,
+			"referenceTypeName": "",
+			"valueType": "Text",
+			"regex": "",
+			"listOfValues": "",
+			"dateFormat": ""
+		},
+		{
+			"name": "type",
+			"description": "the DNS record type = CNAME",
+			"defaultValue": "CNAME",
+			"required": true,
+			"sensitive": true,
+			"referenceTypeName": "",
+			"valueType": "List",
+			"regex": "",
+			"listOfValues": "CNAME",
+			"dateFormat": ""
+		}]
+
+}

@@ -1,0 +1,59 @@
+{
+	"name": "connection-S3Bucket",
+	"description": "details to connect to an Amazon S3 bucket",
+	"endOfLife": "",
+	"inheritFromParent": false,
+	"internal": false,
+	"isMetadataset": false,
+	"numberOfChildNodes": "0",
+	"numberOfIncludes": "0",
+	"attributes": [{
+			"name": "accessKey",
+			"description": "amazon s3 access key",
+			"defaultValue": "",
+			"required": true,
+			"sensitive": true,
+			"referenceTypeName": "",
+			"valueType": "Text",
+			"regex": "",
+			"listOfValues": "",
+			"dateFormat": ""
+  		},
+		{
+			"name": "bucketName",
+			"description": "S3 bucket name",
+			"defaultValue": "",
+			"required": true,
+			"sensitive": false,
+			"referenceTypeName": "",
+			"valueType": "Text",
+			"regex": "",
+			"listOfValues": "",
+			"dateFormat": ""
+		},
+		{
+			"name": "serviceUrl",
+			"description": "S3 bucket URL",
+			"defaultValue": "",
+			"required": true,
+			"sensitive": false,
+			"referenceTypeName": "",
+			"valueType": "Regex",
+			"regex": "^(?:https:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&’\\(\\)\\*\\+,;=.]+$",
+			"listOfValues": "",
+			"dateFormat": ""
+		},
+		{
+			"name": "secretKey",
+			"description": "amazon S3 secret key",
+			"defaultValue": "",
+			"required": true,
+			"sensitive": true,
+			"referenceTypeName": "",
+			"valueType": "Text",
+			"regex": "",
+			"listOfValues": "",
+			"dateFormat": ""
+		}
+	]
+}

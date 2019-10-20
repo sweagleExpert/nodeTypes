@@ -1,0 +1,38 @@
+{
+	"name": "TF-provider-AWS",
+	"description": "terraform provider for AWS",
+	"endOfLife": "",
+	"inheritFromParent": false,
+	"internal": false,
+	"isMetadataset": false,
+	"numberOfChildNodes": "0",
+	"numberOfIncludes": "0",
+	"attributes": [
+		{
+		"name": "profile",
+		"description": "profile name which contains the AWS credentials",
+		"defaultValue": "default",
+		"required": true,
+		"sensitive": false,
+		"referenceTypeName": "",
+		"valueType": "Text",
+		"regex": "",
+		"listOfValues": "",
+		"dateFormat": ""
+		},
+		{
+		"name": "region",
+		"description": "region where the AWS resource must be provisioned",
+		"defaultValue": "",
+		"required": true,
+		"sensitive": false,
+		"referenceTypeName": "",
+		"valueType": "Text",
+		"regex": "",
+		"listOfValues": "",
+		"dateFormat": ""
+		}
+	]
+
+}
+

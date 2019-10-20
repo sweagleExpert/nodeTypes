@@ -1,6 +1,6 @@
 {
   "name": "AWS-S3-ServerDef",
-  "description": "",
+  "description": "AWS S3 server definition",
   "endOfLife": null,
   "inheritFromParent": null,
   "internal": false,

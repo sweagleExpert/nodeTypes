@@ -1,0 +1,49 @@
+{
+  "name": "TF-provider-Datadog",
+  "description": "terraform provider for Datadog",
+  "endOfLife": "",
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": "0",
+  "numberOfIncludes": "0",
+  "attributes": [
+    {
+      "name": "api_key",
+      "description": "Datadog API key",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": true,
+      "referenceTypeName": "",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "app_key",
+      "description": "Datadog APP key",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "api_url",
+      "description": "Datadog API url ",
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Regex",
+      "regex": "^(?:https:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&’\\(\\)\\*\\+,;=.]+$",
+      "listOfValues": "",
+      "dateFormat": ""
+    }
+  ]
+}
+

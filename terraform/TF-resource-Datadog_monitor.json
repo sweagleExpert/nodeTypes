@@ -1,0 +1,110 @@
+{
+  "name": "TF-resource-Datadog_monitor",
+  "description": "specifies a Datadog monitor resource",
+  "endOfLife": "",
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": "0",
+  "numberOfIncludes": "0",
+  "attributes": [
+    {
+      "name": "resource_name",
+      "description": "name of the datadog monitor resource",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "resource_type",
+      "description": "type of the terra form resource - this cannot be changed",
+      "defaultValue": "datadog_monitor",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Regex",
+      "regex": "^(datadog_monitor)$",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "name",
+      "description": "short name for the datadog_monitor",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "type",
+      "description": "The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API documentation page",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "query",
+      "description": "The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details. Warning: terraform plan won't perform any validation of the query contents",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "message",
+      "description": "A message to include with notifications for this monitor. Email notifications can be sent to specific users by using the same '@username' notation as events",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "escalation_message",
+      "description": "A message to include with a re-notification. Supports the '@username' notification allowed elsewhere",
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "notify_no_data",
+      "description": "A boolean indicating whether this monitor will notify when data stops reporting",
+      "defaultValue": "false",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Regex",
+      "regex": "^(true|false)$",
+      "listOfValues": "",
+      "dateFormat": ""
+    }
+  ]
+
+}
+
