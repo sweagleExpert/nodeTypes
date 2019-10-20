@@ -1,0 +1,11 @@
+{
+  "name": "kubernetes-data",
+  "description": "",
+  "endOfLife": "",
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": "",
+  "numberOfIncludes": "",
+  "allowedChildTypes": ""
+}

@@ -1,0 +1,117 @@
+{
+  "name": "kubernetes-service-spec",
+  "description": null,
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "clusterIP",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "externalIPs",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": null,
+      "referenceTypeName": "kubernetes-data",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "externalName",
+      "description": null,
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "loadBalancerIP",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Regex",
+      "regex": "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "ports",
+      "description": null,
+      "defaultValue": null,
+      "required": true,
+      "sensitive": null,
+      "referenceTypeName": "kubernetes-ports",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "selector",
+      "description": null,
+      "defaultValue": null,
+      "required": true,
+      "sensitive": null,
+      "referenceTypeName": "kubernetes-data",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "sessionAffinity",
+      "description": null,
+      "defaultValue": "None",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "List",
+      "regex": null,
+      "listOfValues": [
+        "ClientIP",
+        "None"
+      ],
+      "dateFormat": null
+    },
+    {
+      "name": "type",
+      "description": null,
+      "defaultValue": "ClusterIP",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "List",
+      "regex": null,
+      "listOfValues": [
+        "ClusterIP",
+        "ExternalName",
+        "LoadBalancer",
+        "NodePort"
+      ],
+      "dateFormat": null
+    }
+  ]
+}

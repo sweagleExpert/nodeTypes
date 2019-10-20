@@ -1,0 +1,64 @@
+{
+  "name": "kubernetes-port",
+  "description": null,
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": 0,
+  "numberOfIncludes": 0,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "name",
+      "description": null,
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "port",
+      "description": null,
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "protocol",
+      "description": null,
+      "defaultValue": "TCP",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "List",
+      "regex": null,
+      "listOfValues": [
+        "TCP",
+        "UDP"
+      ],
+      "dateFormat": null
+    },
+    {
+      "name": "targetPort",
+      "description": null,
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "Text",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 {
-  "name": "kubernetes-secret",
-  "description": "kubernetes secret definition",
+  "name": "kubernetes-service-definition",
+  "description": "kubernetes service definition",
   "endOfLife": null,
   "inheritFromParent": false,
   "internal": false,
   "isMetadataset": false,
-  "numberOfChildNodes": 3,
-  "numberOfIncludes": 0,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
   "allowedChildTypes": [],
   "attributes": [
     {
@@ -16,21 +16,7 @@
       "required": true,
       "sensitive": false,
       "referenceTypeName": null,
-      "valueType": "List",
-      "regex": null,
-      "listOfValues": [
-        "v1"
-      ],
-      "dateFormat": null
-    },
-    {
-      "name": "data",
-      "description": null,
-      "defaultValue": null,
-      "required": true,
-      "sensitive": null,
-      "referenceTypeName": "kubernetes-data",
-      "valueType": null,
+      "valueType": "Text",
       "regex": null,
       "listOfValues": [],
       "dateFormat": null
@@ -38,14 +24,22 @@
     {
       "name": "kind",
       "description": null,
-      "defaultValue": "Secret",
+      "defaultValue": "Service",
       "required": true,
       "sensitive": false,
       "referenceTypeName": null,
       "valueType": "List",
       "regex": null,
       "listOfValues": [
-        "Secret"
+        "Deployment",
+        "Ingress",
+        "PersistentVolume",
+        "PersistentVolumeClaim",
+        "Pod",
+        "Secret",
+        "Service",
+        "StatefulSet",
+        "StorageClass"
       ],
       "dateFormat": null
     },
@@ -62,31 +56,15 @@
       "dateFormat": null
     },
     {
-      "name": "stringData",
+      "name": "spec",
       "description": null,
       "defaultValue": null,
-      "required": false,
+      "required": true,
       "sensitive": null,
-      "referenceTypeName": "kubernetes-data",
+      "referenceTypeName": "kubernetes-service-spec",
       "valueType": null,
       "regex": null,
       "listOfValues": [],
-      "dateFormat": null
-    },
-    {
-      "name": "type",
-      "description": null,
-      "defaultValue": "Opaque",
-      "required": false,
-      "sensitive": false,
-      "referenceTypeName": null,
-      "valueType": "List",
-      "regex": null,
-      "listOfValues": [
-        "Opaque",
-        "kubernetes.io/dockerconfigjson",
-        "kubernetes.io/tls"
-      ],
       "dateFormat": null
     }
   ]

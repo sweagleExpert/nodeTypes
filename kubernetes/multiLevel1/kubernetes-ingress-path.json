@@ -1,0 +1,37 @@
+{
+  "name": "kubernetes-ingress-path",
+  "description": "",
+  "endOfLife": "",
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": 1,
+  "numberOfIncludes": 0,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "backend",
+      "description": "",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "kubernetes-ingress-backend",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    },
+    {
+      "name": "path",
+      "description": "",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "",
+      "valueType": "Text",
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
+    }
+  ]
+}

@@ -1,37 +1,37 @@
 {
   "name": "kubernetes-ingress-backend",
-  "description": null,
-  "endOfLife": null,
+  "description": "",
+  "endOfLife": "",
   "inheritFromParent": false,
   "internal": true,
   "isMetadataset": false,
   "numberOfChildNodes": 0,
   "numberOfIncludes": 0,
-  "allowedChildTypes": [],
+  "allowedChildTypes": "",
   "attributes": [
     {
       "name": "serviceName",
-      "description": null,
+      "description": "",
       "defaultValue": "",
       "required": true,
       "sensitive": false,
-      "referenceTypeName": null,
+      "referenceTypeName": "",
       "valueType": "Text",
-      "regex": null,
-      "listOfValues": [],
-      "dateFormat": null
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
     },
     {
       "name": "servicePort",
-      "description": null,
+      "description": "",
       "defaultValue": "",
       "required": true,
       "sensitive": false,
-      "referenceTypeName": null,
+      "referenceTypeName": "",
       "valueType": "Text",
-      "regex": null,
-      "listOfValues": [],
-      "dateFormat": null
+      "regex": "",
+      "listOfValues": "",
+      "dateFormat": ""
     }
   ]
 }
