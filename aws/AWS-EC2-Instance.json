@@ -23,7 +23,7 @@
     },
     {
       "name": "description",
-      "description": "",
+      "description": "instance description - free text",
       "defaultValue": "",
       "required": false,
       "sensitive": false,
@@ -35,7 +35,7 @@
     },
     {
       "name": "imageid",
-      "description": "",
+      "description": "unique image ID number",
       "defaultValue": "",
       "required": true,
       "sensitive": false,
@@ -47,14 +47,18 @@
     },
     {
       "name": "instancetype",
-      "description": "t2.micro | t2.x-large | t2.nano",
+      "description": "The type of instance to start. Updates to this field will trigger a stop/start of the EC2 instance",
       "defaultValue": "t2.micro",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
-      "valueType": "Regex",
-      "regex": "\\bt2.micro|\\bt2.x-large|\\bt2.nano",
-      "listOfValues": [],
+      "valueType": "List",
+      "regex": "",
+      "listOfValues": [
+          "t2.micro",
+          "t2.x-large",
+          "t2.nano"
+      ],
       "dateFormat": ""
     },
     {
@@ -64,19 +68,28 @@
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
-      "valueType": "Regex",
-      "regex": "\\bEMEA|\\bemea|/",
-      "listOfValues": [],
+      "valueType": "List",
+      "regex": "",
+      "listOfValues": [
+        "us-west-1",
+        "us-west-2",
+        "us-east-1",
+        "us-east-2",
+        "eu-central-1",
+        "eu-west-1",
+        "eu-west-2",
+        "eu-west-3"
+      ],
       "dateFormat": ""
     },
     {
       "name": "size",
-      "description": "",
+      "description": "size in Gb",
       "defaultValue": "",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
-      "valueType": "Text",
+      "valueType": "Integer",
       "regex": "",
       "listOfValues": [],
       "dateFormat": ""
@@ -95,12 +108,12 @@
     },
     {
       "name": "volumesize",
-      "description": "",
+      "description": "size in Gb",
       "defaultValue": "",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
-      "valueType": "Text",
+      "valueType": "Integer",
       "regex": "",
       "listOfValues": [],
       "dateFormat": ""
