@@ -24,7 +24,7 @@
     {
       "name": "DBInstanceClass",
       "description": "Defines DB CPU and memory capacity",
-      "defaultValue": "db.m1",
+      "defaultValue": "db.m1.small",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
@@ -66,7 +66,7 @@
     {
       "name": "EngineVersion",
       "description": "Version number of database to use",
-      "defaultValue": "11",
+      "defaultValue": "11i",
       "required": false,
       "sensitive": false,
       "referenceTypeName": null,
