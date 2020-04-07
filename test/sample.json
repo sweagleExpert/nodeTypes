@@ -27,7 +27,7 @@
 		"referenceTypeName": "",
 		"valueType": "List",
 		"regex": "",
-    "listOfValues": "ABC,BCD,EFG",
+    "listOfValues": ["ABC","BCD","EFG"],
 		"dateFormat": ""
 	}, {
 		"name": "sampleRegex",

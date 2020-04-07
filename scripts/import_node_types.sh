@@ -77,9 +77,9 @@ function get_node_type() {
   name=${name//" "/"%20"}
 	res=$(curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type?name=${name}" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' )
 	# check curl exit code
-	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
+	rc=$?; if [ "${rc}" -ne "0" ]; then "ERROR: CURL exit code ${rc}"; exit ${rc}; fi;
   # check http return code
-	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then echo ${res}; exit 1; fi;
+	get_httpreturn http_code res; if [ ${http_code} -ne "200" ]; then echo "ERROR HTTP ${http_code}: SWEAGLE response ${res}"; fi;
 
 	id=$(echo ${res} | jq '.entities[0].properties.id')
 	echo ${id}
@@ -139,6 +139,8 @@ function create_type_attribute() {
 	if [[ -n "${referenceTypeName}" && "${referenceTypeName}" != "null" ]]; then
 		# if there is a reference name, then find referenced type
 		referenceTypeId=$(get_node_type "$referenceTypeName")
+    if [[ -z "${referenceTypeId}" || "${referenceTypeId}" == "null" ]]; then echo "SWEAGLE ERROR : Node type (${referenceTypeName}) not found"; exit 1; fi;
+
 		createURL="$sweagleURL/api/v1/model/attribute?referenceType=${referenceTypeId}"
 	else
 		createURL="$sweagleURL/api/v1/model/attribute?valueType=${valueType}"
@@ -200,9 +202,9 @@ function create_node_type() {
 		--data "isMetadataset=${isMetadataset}" )
 
 	# check curl exit code
-	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
+	rc=$?; if [ "${rc}" -ne "0" ]; then "ERROR: CURL exit code ${rc}"; exit ${rc}; fi;
   # check http return code, it's ok if 200 (OK) or 201 (created)
-	get_httpreturn httpcode res; if [[ "${httpcode}" != 20* ]]; then echo ${res}; exit 1; fi;
+	get_httpreturn http_code res; if [[ "${http_code}" != 20* ]]; then "ERROR HTTP ${http_code}: SWEAGLE response ${res}"; exit ${http_code}; fi;
 
 	# Get the node ID created
 	id=$(echo ${res} | jq '.properties.id')
