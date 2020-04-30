@@ -13,7 +13,7 @@
 			"defaultValue": "",
 			"required": true,
 			"sensitive": false,
-			"referenceTypeName": "",
+			"referenceTypeName": null,
 			"valueType": "Regex",
 			"regex": "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$",
 			"listOfValues": "",
@@ -25,7 +25,7 @@
 			"defaultValue": "",
 			"required": true,
 			"sensitive": false,
-			"referenceTypeName": "",
+			"referenceTypeName": null,
 			"valueType": "Text",
 			"regex": "",
 			"listOfValues": "",
@@ -37,10 +37,10 @@
 			"defaultValue": "A",
 			"required": true,
 			"sensitive": false,
-			"referenceTypeName": "",
+			"referenceTypeName": null,
 			"valueType": "List",
 			"regex": "",
-			"listOfValues": "A",
+			"listOfValues": ["A"],
 			"dateFormat": ""
 		}]
 
