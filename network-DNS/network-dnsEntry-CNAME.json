@@ -36,7 +36,7 @@
 			"description": "the DNS record type = CNAME",
 			"defaultValue": "CNAME",
 			"required": true,
-			"sensitive": true,
+			"sensitive": false,
 			"referenceTypeName": null,
 			"valueType": "List",
 			"regex": "",
