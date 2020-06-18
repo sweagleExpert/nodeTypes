@@ -9,5 +9,6 @@
   "numberOfIncludes": null,
   "allowedChildTypes": [
     "VM"
-  ]
+  ],
+  "attributes": []
 }
