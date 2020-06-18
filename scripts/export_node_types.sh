@@ -184,7 +184,7 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 				echo "},"  >> $filename
 		done
 		# replace last , by } to end json element
-	  sed -i '$ s/.$/]}/' $filename
+	  sed -i '' '$ s/.$/]}/' $filename
 	fi
 	# Reformat the JSON file
 	jq . "${filename}" > "${filename}.tmp"
