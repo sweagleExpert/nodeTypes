@@ -148,7 +148,7 @@ for row in $(echo "[${node_types}]" | jq -r '.[] | @base64'); do
 	#echo "${attributes}" > ./debug-$type_id.json
 	if [ -z "${attributes}" ]; then
 		echo "No attributes for this node type"
-		echo "}"  >> $filename
+		echo ",\"attributes\": []}"  >> $filename
 	else
 		echo ",\"attributes\": ["  >> $filename
 		for attr in $(echo "[${attributes}]" | jq -r '.[] | @base64'); do
