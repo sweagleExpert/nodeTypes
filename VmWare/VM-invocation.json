@@ -1,0 +1,25 @@
+{
+  "name": "VM-invocation",
+  "description": "VmWare invocation definition of a virtual machine",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "module_args",
+      "description": null,
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "VM-module",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}

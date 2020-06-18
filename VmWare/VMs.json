@@ -1,0 +1,13 @@
+{
+  "name": "VMs",
+  "description": "List of VmWare virtual machines",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [
+    "VM"
+  ]
+}

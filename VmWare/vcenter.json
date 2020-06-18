@@ -1,0 +1,73 @@
+{
+  "name": "vcenter",
+  "description": "Vmware virtual data center manager",
+  "endOfLife": null,
+  "inheritFromParent": true,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "cluster_name",
+      "description": "Cluster who owns this ESX",
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "datacenter_name",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "vcenter_ip",
+      "description": "IP of the Vcenter Mgt Server in IPv4 format",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "REGEX",
+      "regex": "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "vcenter_password",
+      "description": "Password required to connect to ESX",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": true,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "vcenter_username",
+      "description": "Username required to connect to ESX",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "VM",
+  "description": "VmWare virtual machine definition",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": true,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "changed",
+      "description": "If status of VM was updated (true or false)",
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "REGEX",
+      "regex": "^true|false$",
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "instance",
+      "description": "Virtual machine instance configuration",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "VM-instance",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "invocation",
+      "description": "Virtual machine invocation configuration",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "VM-invocation",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}
