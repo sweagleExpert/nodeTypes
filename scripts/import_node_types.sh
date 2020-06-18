@@ -75,7 +75,7 @@ function get_node_type() {
 
   # Replace any space in name by %20 as data-urlencode doesn't seem to work for GET
   name=${name//" "/"%20"}
-	res=$(curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type?name=${name}" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' )
+	res=$(curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type?name=${name}&searchMethod=EQUALS" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' )
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then "ERROR: CURL exit code ${rc}"; exit ${rc}; fi;
   # check http return code
