@@ -1,0 +1,49 @@
+{
+  "name": "Application",
+  "description": "application object in the replatformed model",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "collections",
+      "description": "list of collection objects",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "Collections",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "components",
+      "description": "list of components",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "Components",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "environments",
+      "description": "contains the list of environments (appServices)",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "Environments_AppServices",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Environments_AppServices",
+  "description": "Environments object in the replatformed data model",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [
+    "AppService"
+  ],
+  "attributes": []
+}
