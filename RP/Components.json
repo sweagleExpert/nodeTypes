@@ -1,0 +1,28 @@
+{
+  "name": "Components",
+  "description": "list of components",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [
+    "Component",
+    "rp_component_vars"
+  ],
+  "attributes": [
+    {
+      "name": "vars",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": "rp_component_vars",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}

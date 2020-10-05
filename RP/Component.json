@@ -1,0 +1,12 @@
+{
+  "name": "Component",
+  "description": "component object in the replatformed data model",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [],
+  "attributes": []
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Collection",
+  "description": "Collection object in the replatformed data model",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [
+    "Component",
+    "vars"
+  ],
+  "attributes": [
+    {
+      "name": "vars",
+      "description": "list of variables used for token replacement",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "vars",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}
