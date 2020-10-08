@@ -8,7 +8,20 @@
   "numberOfChildNodes": null,
   "numberOfIncludes": null,
   "allowedChildTypes": [
-    "collection"
+    "collection", "vars"
   ],
-  "attributes": []
+  "attributes": [
+    {
+      "name": "vars",
+      "description": null,
+      "defaultValue": null,
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": "vars",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
 }
