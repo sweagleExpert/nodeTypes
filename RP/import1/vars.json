@@ -1,14 +1,12 @@
 {
-  "name": "Collections",
-  "description": "list of collection objects",
+  "name": "vars",
+  "description": "folder with variables in the replatformed data model",
   "endOfLife": null,
   "inheritFromParent": false,
-  "internal": true,
+  "internal": false,
   "isMetadataset": false,
   "numberOfChildNodes": null,
   "numberOfIncludes": null,
-  "allowedChildTypes": [
-    "Collection"
-  ],
+  "allowedChildTypes": [],
   "attributes": []
 }

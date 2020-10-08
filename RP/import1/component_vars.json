@@ -1,0 +1,12 @@
+{
+  "name": "component_vars",
+  "description": "list of Component Vars",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": 0,
+  "allowedChildTypes": [],
+  "attributes": []
+}

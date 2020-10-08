@@ -1,5 +1,5 @@
 {
-  "name": "AppService",
+  "name": "application_service",
   "description": "application service (environment) object in the replatformed data model",
   "endOfLife": null,
   "inheritFromParent": false,
@@ -8,7 +8,7 @@
   "numberOfChildNodes": null,
   "numberOfIncludes": null,
   "allowedChildTypes": [
-    "Collection"
+    "collection"
   ],
   "attributes": []
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Component",
+  "name": "component",
   "description": "component object in the replatformed data model",
   "endOfLife": null,
   "inheritFromParent": false,

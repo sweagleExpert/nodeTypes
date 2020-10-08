@@ -1,24 +1,24 @@
 {
-  "name": "Components",
-  "description": "list of components",
+  "name": "collection",
+  "description": "collection object in the replatformed data model",
   "endOfLife": null,
   "inheritFromParent": false,
-  "internal": true,
+  "internal": false,
   "isMetadataset": false,
   "numberOfChildNodes": null,
   "numberOfIncludes": null,
   "allowedChildTypes": [
-    "Component",
-    "rp_component_vars"
+    "component",
+    "vars"
   ],
   "attributes": [
     {
       "name": "vars",
-      "description": null,
+      "description": "list of variables used for token replacement",
       "defaultValue": null,
-      "required": false,
+      "required": true,
       "sensitive": false,
-      "referenceTypeName": "rp_component_vars",
+      "referenceTypeName": "vars",
       "valueType": null,
       "regex": null,
       "listOfValues": [],

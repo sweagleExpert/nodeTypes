@@ -1,6 +1,6 @@
 {
-  "name": "Environments_AppServices",
-  "description": "Environments object in the replatformed data model",
+  "name": "collections",
+  "description": "list of collection objects",
   "endOfLife": null,
   "inheritFromParent": false,
   "internal": true,
@@ -8,7 +8,7 @@
   "numberOfChildNodes": null,
   "numberOfIncludes": null,
   "allowedChildTypes": [
-    "AppService"
+    "collection"
   ],
   "attributes": []
 }
