@@ -3,10 +3,10 @@
   "description": "folder with variables in the replatformed data model",
   "endOfLife": null,
   "inheritFromParent": false,
-  "internal": false,
+  "internal": true,
   "isMetadataset": false,
-  "numberOfChildNodes": null,
-  "numberOfIncludes": null,
+  "numberOfChildNodes": 0,
+  "numberOfIncludes": 0,
   "allowedChildTypes": [],
   "attributes": []
 }
