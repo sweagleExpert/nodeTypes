@@ -7,6 +7,9 @@
 	"isMetadataset": false,
 	"numberOfChildNodes": "",
 	"numberOfIncludes": "",
+	"allowedChildTypes": [
+		"children", "toto"
+	],
 	"attributes": [{
 		"name": "sampleText",
 		"description": "",

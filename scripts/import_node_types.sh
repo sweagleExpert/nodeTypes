@@ -3,7 +3,7 @@
 # SCRIPT: import_node_types.sh
 # AUTHOR: dimitris@sweagle.com, filip@sweagle.com
 # DATE:   July 2019
-# REV:    1.0.D (Valid are A, B, D, T, Q, and P)
+# REV:    1.1.D (Valid are A, B, D, T, Q, and P)
 #               (For Alpha, Beta, Dev, Test, QA, and Production)
 #
 # PLATFORM: Not platform dependent
@@ -19,6 +19,7 @@
 #        BY:   AUTHOR_of_MODIFICATION
 #        MODIFICATION: Describe what was modified, new features, etc--
 #
+#   201109 - Dimitris - Add Allowed children API for creation
 #
 # set -n   # Uncomment to check script syntax, without execution.
 #          # NOTE: Do not forget to put the # comment back in or
@@ -49,6 +50,41 @@ fi
 #                    FUNCTIONS
 ##########################################################
 
+# arg1: changeset ID
+# arg2: node type ID
+# arg3: children node type ID
+function add_allowed_children() {
+	changeset=${1}
+	type_id=${2}
+  children_id=${3}
+
+	createURL="$sweagleURL/api/v1/model/type/${type_id}/childTypes"
+
+	# Create a new allowed children type
+	res=$(\
+		curl -sw "%{http_code}" "$createURL" --request POST --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
+		--data "changeset=${changeset}" \
+		--data "childTypeId=${children_id}" )
+
+	# check curl exit code
+	rc=$?; if [ "${rc}" -ne "0" ]; then "ERROR: CURL exit code ${rc}"; exit ${rc}; fi;
+  # check http return code, it's ok if 200 (OK) or 201 (created)
+	get_httpreturn http_code res; if [[ "${http_code}" != 20* ]]; then "ERROR HTTP ${http_code}: SWEAGLE response ${res}"; exit ${http_code}; fi;
+}
+
+
+# arg1: changeset ID
+function approve_model_changeset() {
+	changeset=${1}
+	# Create and open a new changeset
+	res=$(curl -sw "%{http_code}" "$sweagleURL/api/v1/model/changeset/${changeset}/approve" --request POST --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json')
+	# check curl exit code
+	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
+    # check http return code
+	get_httpreturn httpcode res; if [ ${httpcode} -eq "200" ]; then return 0; else return 1; fi;
+}
+
+
 # arg1: title
 # arg2: description
 function create_modelchangeset() {
@@ -68,47 +104,54 @@ function create_modelchangeset() {
 	echo ${cs}
 }
 
-# Get a node_type based on its name
-# arg1: name
-function get_node_type() {
-	name=${1}
 
-  # Replace any space in name by %20 as data-urlencode doesn't seem to work for GET
-  name=${name//" "/"%20"}
-	res=$(curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type?name=${name}&searchMethod=EQUALS" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' )
+# arg1: changeset ID
+# arg2: name
+function create_node_type() {
+	changeset=${1}
+	name=${2}
+
+	# Manage specific integer and date args to avoid conversion error if empty string
+	args=""
+	if [ -n "${endOfLife}" ]; then
+		args="?endOfLife=$endOfLife"
+	fi
+	if [ -n "${numberOfChildNodes}" ]; then
+		if [ -z "$args" ]; then
+			args="?numberOfChildNodes=$numberOfChildNodes"
+		else
+			args="$args&numberOfChildNodes=$numberOfChildNodes"
+		fi
+	fi
+	if [ -n "${numberOfIncludes}" ]; then
+		if [ -z "$args" ]; then
+			args="?numberOfIncludes=$numberOfIncludes"
+		else
+			args="$args&numberOfIncludes=$numberOfIncludes"
+		fi
+	fi
+	createURL="$sweagleURL/api/v1/model/type$args"
+
+	# Create a new node_type
+	res=$(\
+		curl -sw "%{http_code}" "$createURL" --request POST --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
+		--data "changeset=${changeset}" \
+		--data-urlencode "name=${name}" \
+		--data-urlencode "description=${description}" \
+		--data "inheritFromParent=${inheritFromParent}" \
+		--data "internal=${internal}" \
+		--data "isMetadataset=${isMetadataset}" )
+
 	# check curl exit code
 	rc=$?; if [ "${rc}" -ne "0" ]; then "ERROR: CURL exit code ${rc}"; exit ${rc}; fi;
-  # check http return code
-	get_httpreturn http_code res; if [ ${http_code} -ne "200" ]; then echo "ERROR HTTP ${http_code}: SWEAGLE response ${res}"; fi;
+  # check http return code, it's ok if 200 (OK) or 201 (created)
+	get_httpreturn http_code res; if [[ "${http_code}" != 20* ]]; then "ERROR HTTP ${http_code}: SWEAGLE response ${res}"; exit ${http_code}; fi;
 
-	id=$(echo ${res} | jq '.entities[0].properties.id')
+	# Get the node ID created
+	id=$(echo ${res} | jq '.properties.id')
 	echo ${id}
 }
 
-# arg1: type id
-# arg2: name
-function get_type_attribute() {
-	id=${1}
-	name=${2:-}
-
-	# Get a type attributes based on type id
-	res=$(\
-	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/attribute?type=$id" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
-		)
-	# check curl exit code
-	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
-  # check http return code
-	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then echo ${res}; exit 1; fi;
-
-	if [ -n "${name}" ]; then
-		# Get attribute ID based on its name
-		attr_id=$(echo ${res} | jq --arg attr_name ${name} '.entities[].properties | select(.identifierKey|index($attr_name)) | .id')
-	else
-		# Return list of existing attributes names
-		attr_id=$(echo ${res} | jq '.entities[].properties.identifierKey')
-	fi
-	echo ${attr_id}
-}
 
 # arg1: changeset ID
 # arg2: type ID
@@ -164,53 +207,6 @@ function create_type_attribute() {
 	get_httpreturn httpcode res; if [[ "${httpcode}" != 20* ]]; then echo ${res}; exit 1; fi;
 }
 
-# arg1: changeset ID
-# arg2: name
-function create_node_type() {
-	changeset=${1}
-	name=${2}
-
-	# Manage specific integer and date args to avoid conversion error if empty string
-	args=""
-	if [ -n "${endOfLife}" ]; then
-		args="?endOfLife=$endOfLife"
-	fi
-	if [ -n "${numberOfChildNodes}" ]; then
-		if [ -z "$args" ]; then
-			args="?numberOfChildNodes=$numberOfChildNodes"
-		else
-			args="$args&numberOfChildNodes=$numberOfChildNodes"
-		fi
-	fi
-	if [ -n "${numberOfIncludes}" ]; then
-		if [ -z "$args" ]; then
-			args="?numberOfIncludes=$numberOfIncludes"
-		else
-			args="$args&numberOfIncludes=$numberOfIncludes"
-		fi
-	fi
-	createURL="$sweagleURL/api/v1/model/type$args"
-
-	# Create a new node_type
-	res=$(\
-		curl -sw "%{http_code}" "$createURL" --request POST --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
-		--data "changeset=${changeset}" \
-		--data-urlencode "name=${name}" \
-		--data-urlencode "description=${description}" \
-		--data "inheritFromParent=${inheritFromParent}" \
-		--data "internal=${internal}" \
-		--data "isMetadataset=${isMetadataset}" )
-
-	# check curl exit code
-	rc=$?; if [ "${rc}" -ne "0" ]; then "ERROR: CURL exit code ${rc}"; exit ${rc}; fi;
-  # check http return code, it's ok if 200 (OK) or 201 (created)
-	get_httpreturn http_code res; if [[ "${http_code}" != 20* ]]; then "ERROR HTTP ${http_code}: SWEAGLE response ${res}"; exit ${http_code}; fi;
-
-	# Get the node ID created
-	id=$(echo ${res} | jq '.properties.id')
-	echo ${id}
-}
-
 
 # arg1: changeset ID
 # arg2: type ID
@@ -232,6 +228,90 @@ function delete_type_attribute() {
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
 	# check http return code, it's ok if 200 (OK) or 201 (created)
 	get_httpreturn httpcode res; if [ ${httpcode} -ne 200 ]; then echo ${res}; exit 1; fi;
+}
+
+
+# Get a node_type id based on its name
+# arg1: name
+function get_node_type() {
+	name=${1}
+
+  # Replace any space in name by %20 as data-urlencode doesn't seem to work for GET
+  name=${name//" "/"%20"}
+	res=$(curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type?name=${name}&searchMethod=EQUALS" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' )
+	# check curl exit code
+	rc=$?; if [ "${rc}" -ne "0" ]; then "ERROR: CURL exit code ${rc}"; exit ${rc}; fi;
+  # check http return code
+	get_httpreturn http_code res; if [ ${http_code} -ne "200" ]; then echo "ERROR HTTP ${http_code}: SWEAGLE response ${res}"; fi;
+
+	id=$(echo ${res} | jq '.entities[0].properties.id')
+	echo ${id}
+}
+
+
+# arg1: type id
+# arg2: name
+function get_type_attribute() {
+	id=${1}
+	name=${2:-}
+
+	# Get a type attributes based on type id
+	res=$(\
+	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/attribute?type=$id" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
+		)
+	# check curl exit code
+	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
+  # check http return code
+	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then echo ${res}; exit 1; fi;
+
+	if [ -n "${name}" ]; then
+		# Get attribute ID based on its name
+		attr_id=$(echo ${res} | jq --arg attr_name ${name} '.entities[].properties | select(.identifierKey|index($attr_name)) | .id')
+	else
+		# Return list of existing attributes names
+		attr_id=$(echo ${res} | jq '.entities[].properties.identifierKey')
+	fi
+	echo ${attr_id}
+}
+
+
+
+# arg1: json string to parse
+function parse_json_attribute() {
+  json=$(echo ${1} | jq --arg attr_name "${2}" '.[] | select(.name==$attr_name)')
+
+	name=$(echo ${2})
+	description=$(echo ${json} | jq -r '.description // empty')
+	defaultValue=$(echo ${json} | jq -r '.defaultValue // empty')
+	required=$(echo ${json} | jq -r '.required // empty')
+	sensitive=$(echo ${json} | jq -r '.sensitive // empty')
+	referenceTypeName=$(echo ${json} | jq -r '.referenceTypeName // empty')
+	valueType=$(echo ${json} | jq -r '.valueType // empty')
+	regex=$(echo ${json} | jq -r '.regex // empty')
+	listOfValues=$(echo ${json} | jq -r '.listOfValues // empty')
+  if [[ "${listOfValues}" == "[]" || "${listOfValues}" == "null" ]]; then
+    listOfValues=""
+  else
+    # If there is a list, we should transform it from JSON format to simple CSV list with no "" separator
+    listOfValues=$(echo ${listOfValues} | jq -r '. | join (",")')
+  fi
+	dateFormat=$(echo ${json} | jq -r '.dateFormat // empty')
+}
+
+
+# arg1: json file to parse
+function parse_json_node_type() {
+	json=$(cat ${1})
+
+	name=$(echo ${json} | jq -r '.name')
+	description=$(echo ${json} | jq -r '.description // empty')
+	endOfLife=$(echo ${json} | jq -r '.endOfLife // empty')
+	inheritFromParent=$(echo ${json} | jq -r '.inheritFromParent // empty')
+	internal=$(echo ${json} | jq -r '.internal // empty')
+	isMetadataset=$(echo ${json} | jq -r '.isMetadataset  // empty')
+	numberOfChildNodes=$(echo ${json} | jq -r '.numberOfChildNodes  // empty')
+	numberOfIncludes=$(echo ${json} | jq -r '.numberOfIncludes // empty')
+	attributes=$(echo ${json} | jq -c '.attributes  // empty')
 }
 
 
@@ -350,54 +430,6 @@ function update_node_type() {
 
 }
 
-# arg1: changeset ID
-function approve_model_changeset() {
-	changeset=${1}
-	# Create and open a new changeset
-	res=$(curl -sw "%{http_code}" "$sweagleURL/api/v1/model/changeset/${changeset}/approve" --request POST --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json')
-	# check curl exit code
-	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
-    # check http return code
-	get_httpreturn httpcode res; if [ ${httpcode} -eq "200" ]; then return 0; else return 1; fi;
-}
-
-# arg1: json string to parse
-function parse_json_attribute() {
-  json=$(echo ${1} | jq --arg attr_name "${2}" '.[] | select(.name==$attr_name)')
-
-	name=$(echo ${2})
-	description=$(echo ${json} | jq -r '.description // empty')
-	defaultValue=$(echo ${json} | jq -r '.defaultValue // empty')
-	required=$(echo ${json} | jq -r '.required // empty')
-	sensitive=$(echo ${json} | jq -r '.sensitive // empty')
-	referenceTypeName=$(echo ${json} | jq -r '.referenceTypeName // empty')
-	valueType=$(echo ${json} | jq -r '.valueType // empty')
-	regex=$(echo ${json} | jq -r '.regex // empty')
-	listOfValues=$(echo ${json} | jq -r '.listOfValues // empty')
-  if [[ "${listOfValues}" == "[]" || "${listOfValues}" == "null" ]]; then
-    listOfValues=""
-  else
-    # If there is a list, we should transform it from JSON format to simple CSV list with no "" separator
-    listOfValues=$(echo ${listOfValues} | jq -r '. | join (",")')
-  fi
-	dateFormat=$(echo ${json} | jq -r '.dateFormat // empty')
-}
-
-# arg1: json file to parse
-function parse_json_node_type() {
-	json=$(cat ${1})
-
-	name=$(echo ${json} | jq -r '.name')
-	description=$(echo ${json} | jq -r '.description // empty')
-	endOfLife=$(echo ${json} | jq -r '.endOfLife // empty')
-	inheritFromParent=$(echo ${json} | jq -r '.inheritFromParent // empty')
-	internal=$(echo ${json} | jq -r '.internal // empty')
-	isMetadataset=$(echo ${json} | jq -r '.isMetadataset  // empty')
-	numberOfChildNodes=$(echo ${json} | jq -r '.numberOfChildNodes  // empty')
-	numberOfIncludes=$(echo ${json} | jq -r '.numberOfIncludes // empty')
-	attributes=$(echo ${json} | jq -c '.attributes  // empty')
-}
-
 
 ##########################################################
 #               BEGINNING OF MAIN
@@ -432,12 +464,18 @@ for file in $INPUT_DIR/*.json; do
 			#create_type_attribute $modelcs $type_id "${attribute[0]}" "${attribute[1]}" "${attribute[2]}" "${attribute[3]}" "${attribute[4]}" "${attribute[5]}" "${attribute[6]}" "${attribute[7]}" "${attribute[8]}" "${attribute[9]}"
 			echo "# Attribute (${name}) created"
 		done< <(jq -c -r '.attributes[] | .name' < "${file}")
-# PROBLEM OF THE CODE BELOW : RECORDS ARE SPLITTED BECAUSE OF SPACES IN DESCRIPTION FIELD
-#  	for row in $(echo "$attributes" | jq -c -r '.[] | [.name,.description,.defaultValue]'); do
-#			echo "row=${row}"
-#			parse_json_attribute ${row}
-			#create_type_attribute $modelcs $type_id $name $description $valueType $required $sensitive $regex $dateFormat $defaultValue $referenceTypeName
-#		done
+
+    echo "Adding allowed childrens, if any"
+    while IFS=$'\n' read -r children_name; do
+      echo "# Adding allowed children (${children_name})"
+      children_id=$(get_node_type "$children_name")
+      if [ -z "$children_id" ] || [ "$children_id" == "null" ]; then
+        echo "### WARNING: No existing CHILDREN node type $children_name, ignore it"
+      else
+			  add_allowed_children ${modelcs} ${type_id} ${children_id}
+			  echo "# Allowed children (${children_name}) added"
+      fi
+		done< <(jq -c -r '.allowedChildTypes[]' < "${file}")
 
 	else
 		echo "### NODE type $name already exits with id ($type_id), update it"

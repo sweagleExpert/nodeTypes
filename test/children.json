@@ -1,0 +1,15 @@
+{
+	"name": "children",
+	"description": "this is children of sample node type",
+	"endOfLife": "",
+	"inheritFromParent": false,
+	"internal": true,
+	"isMetadataset": false,
+	"numberOfChildNodes": "1",
+	"numberOfIncludes": "1",
+	"allowedChildTypes": [
+		"toto"
+	],
+	"attributes": []
+
+}
