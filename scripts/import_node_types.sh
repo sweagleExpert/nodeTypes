@@ -209,6 +209,25 @@ function create_type_attribute() {
 
 
 # arg1: changeset ID
+# arg2: node type ID
+# arg3: children node type ID
+function delete_allowed_children() {
+	changeset=${1}
+	type_id=${2}
+  children_id=${3}
+
+	deleteURL="$sweagleURL/api/v1/model/type/${type_id}/childTypes?changeset=${changeset}&childTypeId=${children_id}"
+	# delete an existing allowed children type
+	res=$(curl -sw "%{http_code}" "$deleteURL" --request DELETE --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json')
+
+	# check curl exit code
+	rc=$?; if [ "${rc}" -ne "0" ]; then "ERROR: CURL exit code ${rc}"; exit ${rc}; fi;
+  # check http return code, it's ok if 200 (OK) or 201 (created)
+	get_httpreturn http_code res; if [[ "${http_code}" != 20* ]]; then "ERROR HTTP ${http_code}: SWEAGLE response ${res}"; exit ${http_code}; fi;
+}
+
+
+# arg1: changeset ID
 # arg2: type ID
 # arg3: name
 function delete_type_attribute() {
@@ -228,6 +247,22 @@ function delete_type_attribute() {
 	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
 	# check http return code, it's ok if 200 (OK) or 201 (created)
 	get_httpreturn httpcode res; if [ ${httpcode} -ne 200 ]; then echo ${res}; exit 1; fi;
+}
+
+
+# arg1: type id
+function get_all_allowed_child_types() {
+	id=${1}
+
+	res=$(\
+	  curl -sw "%{http_code}" "$sweagleURL/api/v1/model/type/$id/childTypes" --request GET --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
+		)
+	# check curl exit code
+	rc=$?; if [ "${rc}" -ne "0" ]; then exit ${rc}; fi;
+  # check http return code
+	get_httpreturn httpcode res; if [ ${httpcode} -ne "200" ]; then exit 1; fi;
+
+	echo ${res}
 }
 
 
@@ -312,6 +347,29 @@ function parse_json_node_type() {
 	numberOfChildNodes=$(echo ${json} | jq -r '.numberOfChildNodes  // empty')
 	numberOfIncludes=$(echo ${json} | jq -r '.numberOfIncludes // empty')
 	attributes=$(echo ${json} | jq -c '.attributes  // empty')
+}
+
+
+# arg1: changeset ID
+# arg2: node type ID
+# arg3: children node type ID
+function remove_allowed_children() {
+	changeset=${1}
+	type_id=${2}
+  children_id=${3}
+
+	createURL="$sweagleURL/api/v1/model/type/${type_id}/childTypes"
+
+	# Delete an existing allowed children type
+	res=$(\
+		curl -sw "%{http_code}" "$createURL" --request DELETE --header "authorization: bearer $aToken"  --header 'Accept: application/vnd.siren+json' \
+		--data "changeset=${changeset}" \
+		--data "childTypeId=${children_id}" )
+
+	# check curl exit code
+	rc=$?; if [ "${rc}" -ne "0" ]; then "ERROR: CURL exit code ${rc}"; exit ${rc}; fi;
+  # check http return code, it's ok if 200 (OK) or 201 (created)
+	get_httpreturn http_code res; if [[ "${http_code}" != 20* ]]; then "ERROR HTTP ${http_code}: SWEAGLE response ${res}"; exit ${http_code}; fi;
 }
 
 
@@ -465,18 +523,6 @@ for file in $INPUT_DIR/*.json; do
 			echo "# Attribute (${name}) created"
 		done< <(jq -c -r '.attributes[] | .name' < "${file}")
 
-    echo "Adding allowed childrens, if any"
-    while IFS=$'\n' read -r children_name; do
-      echo "# Adding allowed children (${children_name})"
-      children_id=$(get_node_type "$children_name")
-      if [ -z "$children_id" ] || [ "$children_id" == "null" ]; then
-        echo "### WARNING: No existing CHILDREN node type $children_name, ignore it"
-      else
-			  add_allowed_children ${modelcs} ${type_id} ${children_id}
-			  echo "# Allowed children (${children_name}) added"
-      fi
-		done< <(jq -c -r '.allowedChildTypes[]' < "${file}")
-
 	else
 		echo "### NODE type $name already exits with id ($type_id), update it"
 		update_node_type $modelcs $type_id "$name" "$description" "$inheritFromParent" "$internal" "$isMetadataset" "$endOfLife" "$numberOfChildNodes" "$numberOfIncludes"
@@ -485,8 +531,9 @@ for file in $INPUT_DIR/*.json; do
 		# Compare new and old lists of attributes
 		old_attr_list=$(get_type_attribute $type_id)
 		new_attr_list=$(echo ${attributes} | jq '.[].name')
-		echo $old_attr_list | sed 's/ /\n/g'| sort > ./old.tmp
-		echo $new_attr_list | sed 's/ /\n/g'| sort > ./new.tmp
+    # Replace space by line breaks in list to be able to sort it and use file comparison
+    echo $old_attr_list | sed 's/ /\'$'\n/g'| sort > ./old.tmp
+		echo $new_attr_list | sed 's/ /\'$'\n/g'| sort > ./new.tmp
 
 		eval "attr_arr=($(comm -13 ./new.tmp ./old.tmp))"
 		if [[ 	${#attr_arr[@]} -ne 0 ]]; then
@@ -518,9 +565,36 @@ for file in $INPUT_DIR/*.json; do
 			done
 		fi
 
-		rm -f ./new.tmp
+    rm -f ./new.tmp
 		rm -f ./old.tmp
+
+    echo "Removing all existing allowed childrens, if any"
+    allowedChild=$(get_all_allowed_child_types $type_id)
+  	allowedChild="$(echo ${allowedChild} | jq -r '[.entities[].properties.id] | @sh')"
+  	#echo "allowedChildTypes:$allowedChild"
+    allowedChildArray=($allowedChild)
+    if [[ ${#allowedChildArray[@]} -ne 0 ]]; then
+      for i in "${allowedChildArray[@]}"
+      do
+         echo "# Delete allowed children ($i)"
+         delete_allowed_children $modelcs $type_id $i
+      done
+    fi
+
 	fi
+
+  echo "Adding allowed childrens, if any"
+  while IFS=$'\n' read -r children_name; do
+    echo "# Adding allowed children (${children_name})"
+    children_id=$(get_node_type "$children_name")
+    if [ -z "$children_id" ] || [ "$children_id" == "null" ]; then
+      echo "### WARNING: No existing CHILDREN node type $children_name, ignore it"
+    else
+      add_allowed_children ${modelcs} ${type_id} ${children_id}
+      echo "# Allowed children (${children_name}) added"
+    fi
+  done< <(jq -c -r '.allowedChildTypes[]' < "${file}")
+
 done
 
 # approve

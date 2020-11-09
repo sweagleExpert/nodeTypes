@@ -49,7 +49,7 @@
 		"defaultValue": "",
 		"required": true,
 		"sensitive": false,
-		"referenceTypeName": "hostname",
+		"referenceTypeName": "children",
 		"valueType": "",
 		"regex": "",
     "listOfValues": "",
