@@ -1,6 +1,6 @@
 {
-  "name": "environments_application_services",
-  "description": "Environments object in the replatformed data model",
+  "name": "deployables",
+  "description": "list of deployable objects",
   "endOfLife": null,
   "inheritFromParent": false,
   "internal": true,
@@ -8,7 +8,7 @@
   "numberOfChildNodes": null,
   "numberOfIncludes": null,
   "allowedChildTypes": [
-    "application_service"
+    "deployable"
   ],
   "attributes": []
 }

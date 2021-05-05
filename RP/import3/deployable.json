@@ -1,6 +1,6 @@
 {
-  "name": "application_service",
-  "description": "application service (environment) object in the replatformed data model",
+  "name": "deployable",
+  "description": "deployable object in the replatformed data model",
   "endOfLife": null,
   "inheritFromParent": false,
   "internal": false,

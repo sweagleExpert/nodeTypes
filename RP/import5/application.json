@@ -11,7 +11,7 @@
   "attributes": [
     {
       "name": "collections",
-      "description": "list of collection objects",
+      "description": "list of collection objects (like releases, group of components)",
       "defaultValue": null,
       "required": true,
       "sensitive": false,
@@ -23,7 +23,7 @@
     },
     {
       "name": "components",
-      "description": "list of components",
+      "description": "list of components (like artifacts or packages or application components)",
       "defaultValue": null,
       "required": true,
       "sensitive": false,
@@ -34,12 +34,12 @@
       "dateFormat": null
     },
     {
-      "name": "environments",
-      "description": "contains the list of environments (appServices)",
+      "name": "deployables",
+      "description": "contains the list of deployables (like environments, sites, ...)",
       "defaultValue": null,
       "required": true,
       "sensitive": false,
-      "referenceTypeName": "environments_application_services",
+      "referenceTypeName": "deployables",
       "valueType": null,
       "regex": null,
       "listOfValues": [],
