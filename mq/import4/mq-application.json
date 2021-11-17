@@ -1,0 +1,49 @@
+{
+  "name": "mq-application",
+  "description": "MQ Application definition",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": 3,
+  "numberOfIncludes": 0,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "environments",
+      "description": "List of environments",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "mq-environments",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "queues",
+      "description": "List of queues",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "mq-root",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "releases",
+      "description": "List of releases",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "mq-releases",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "mq-root",
+  "description": "Root dimension for MQ",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": false,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [
+    "mq-application"
+  ],
+  "attributes": []
+}
