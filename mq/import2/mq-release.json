@@ -1,0 +1,16 @@
+{
+  "name": "mq-release",
+  "description": "Release definition for MQ project",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [
+    "mq-alias",
+    "mq-local",
+    "mq-manager"
+  ],
+  "attributes": []
+}

@@ -1,0 +1,14 @@
+{
+  "name": "mq-manager-single",
+  "description": "Single queue manager",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": 0,
+  "numberOfIncludes": 1,
+  "allowedChildTypes": [
+    "mq-manager"
+  ],
+  "attributes": []
+}
