@@ -1,0 +1,12 @@
+{
+  "name": "mq-manager",
+  "description": "MQ queue manager",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": 0,
+  "numberOfIncludes": 0,
+  "allowedChildTypes": [],
+  "attributes": []
+}
