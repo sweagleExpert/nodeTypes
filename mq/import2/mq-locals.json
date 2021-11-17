@@ -1,0 +1,14 @@
+{
+  "name": "mq-locals",
+  "description": "List of local queues",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": null,
+  "numberOfIncludes": null,
+  "allowedChildTypes": [
+    "mq-local"
+  ],
+  "attributes": []
+}

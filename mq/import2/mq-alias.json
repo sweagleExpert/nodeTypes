@@ -1,0 +1,27 @@
+{
+  "name": "mq-alias",
+  "description": null,
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": 0,
+  "numberOfIncludes": 1,
+  "allowedChildTypes": [
+    "mq-local"
+  ],
+  "attributes": [
+    {
+      "name": "alias-name-suffix",
+      "description": "MQ queue alias name suffix, prefix is based on real queue name",
+      "defaultValue": "A01",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    }
+  ]
+}

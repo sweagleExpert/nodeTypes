@@ -1,0 +1,161 @@
+{
+  "name": "mq-local",
+  "description": "MQ local queue definition",
+  "endOfLife": null,
+  "inheritFromParent": false,
+  "internal": true,
+  "isMetadataset": false,
+  "numberOfChildNodes": 1,
+  "numberOfIncludes": 0,
+  "allowedChildTypes": [],
+  "attributes": [
+    {
+      "name": "backout-queue",
+      "description": "Backout queue (distributed only)",
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "backout-threshold",
+      "description": "Backout threshold (distributed only)",
+      "defaultValue": "3",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "INTEGER",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "description",
+      "description": "",
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "manager",
+      "description": "Queue manager to include from existing list",
+      "defaultValue": null,
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": "mq-manager-single",
+      "valueType": null,
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "max-depth",
+      "description": "Max queue depth",
+      "defaultValue": "100",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "LIST",
+      "regex": null,
+      "listOfValues": [
+        "100",
+        "1000",
+        "10000",
+        "15000",
+        "50000",
+        "100000",
+        "500000",
+        "1000000"
+      ],
+      "dateFormat": null
+    },
+    {
+      "name": "msg-length",
+      "description": "average message length in bytes",
+      "defaultValue": "1000",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "LONG",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "name",
+      "description": "Queue name, calculated based on environment and suffix",
+      "defaultValue": "@@ENVEASYWAY@@.PQ.##name-suffix##",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "name-suffix",
+      "description": "Queue name suffix editable by project team",
+      "defaultValue": "",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "persistence",
+      "description": "Default persistence",
+      "defaultValue": "P",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "LIST",
+      "regex": null,
+      "listOfValues": [
+        "P",
+        "NP"
+      ],
+      "dateFormat": null
+    },
+    {
+      "name": "storage-class",
+      "description": "Storage class (mainframe only)",
+      "defaultValue": "",
+      "required": false,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "TEXT",
+      "regex": null,
+      "listOfValues": [],
+      "dateFormat": null
+    },
+    {
+      "name": "type",
+      "description": null,
+      "defaultValue": "EB",
+      "required": true,
+      "sensitive": false,
+      "referenceTypeName": null,
+      "valueType": "LIST",
+      "regex": null,
+      "listOfValues": [
+        "EB",
+        "LOCAL",
+        "REMOTE"
+      ],
+      "dateFormat": null
+    }
+  ]
+}
